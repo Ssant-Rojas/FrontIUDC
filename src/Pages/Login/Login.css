@@ -1,6 +1,7 @@
 .Main-login {
     display: flex;
     justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('../../assets/Sede-verde-capas.jpg'); 
     align-items: center;
     height: 100vh;
     background-size: cover;

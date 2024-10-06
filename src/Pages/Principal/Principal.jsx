@@ -1,6 +1,14 @@
 import './Principal.css';
+import { useNavigate } from 'react-router-dom';
 
 function PrincipalPage() {
+
+  const navigate = useNavigate();
+
+  const handleSolicitarAyudaClick = () => {
+    navigate('/pedirAyuda'); 
+  };
+  
   return (
     <>
       {/* Contenedor principal */}
@@ -18,7 +26,7 @@ function PrincipalPage() {
 
         {/* Sección de opciones */}
         <section className="options-section">
-          <div className="option">
+          <div className="option" onClick={handleSolicitarAyudaClick}>
             <i className="fa fa-shopping-bag option-icon"></i>
             <h2>Solicitar algo</h2>
             <p>Busque en el catálogo los servicios y artículos </p>

@@ -2,23 +2,23 @@ html, body, #root, .App {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Evita desbordamientos */
+  overflow: hidden; 
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Asegura que todo el contenedor ocupe la altura completa de la ventana */
+  height: 100vh; 
 }
 
 header {
-  flex-shrink: 0; /* Evita que el header se comprima */
-  background-color: #1D2256; /* Estilos del header */
-  padding: 10px; /* Ajusta el espaciado del header */
+  flex-shrink: 0; 
+  background-color: #1D2256;
+  padding: 10px; 
 }
 
 .Main-login {
-  flex-grow: 1; /* Asegura que el main ocupe todo el espacio restante */
+  flex-grow: 1; 
   display: flex;
   justify-content: center;
   align-items: center;
