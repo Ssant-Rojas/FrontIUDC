@@ -1,0 +1,19 @@
+.Header-TopBar {
+    background-color: #1D2256;
+    height: 60px; 
+    display: flex;
+    align-items: center; 
+    border-bottom: 3px solid orange; 
+    padding: 0 20px; 
+}
+
+.Logo-Space {
+    display: flex;
+    align-items: center; 
+}
+
+.Logo img {
+    height: 70px; 
+    width: auto; 
+    object-fit: contain; 
+}

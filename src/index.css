@@ -1,0 +1,30 @@
+html, body, #root, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita desbordamientos */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Asegura que todo el contenedor ocupe la altura completa de la ventana */
+}
+
+header {
+  flex-shrink: 0; /* Evita que el header se comprima */
+  background-color: #1D2256; /* Estilos del header */
+  padding: 10px; /* Ajusta el espaciado del header */
+}
+
+.Main-login {
+  flex-grow: 1; /* Asegura que el main ocupe todo el espacio restante */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1D2256;
+  background-image: url("./assets/sede-verde 1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
