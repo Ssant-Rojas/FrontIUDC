@@ -1,0 +1,17 @@
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .data-buttons {
+    margin-top: 20px;
+  }
+  
+  button {
+    margin: 10px 0;
+    padding: 10px;
+    cursor: pointer;
+  }
+  

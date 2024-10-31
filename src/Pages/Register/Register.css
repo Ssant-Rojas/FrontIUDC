@@ -1,0 +1,75 @@
+.Main-login {
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('../../assets/Sede-verde-capas.jpg'); 
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+.Letters {
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    max-width: 400px;
+    width: 100%;
+}
+
+.Letters h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+.Letters p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+.input-group {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-button {
+    width: 100%; 
+    background-color: #ff6600; 
+    color: white;
+    border: none;
+    padding: 12px 0; 
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em; 
+}
+
+.login-button:hover {
+    background-color: #ff6600; 
+}
+
+a {
+    color: white;
+    margin-top: 1em;
+    display: block;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #FF6600; 
+}

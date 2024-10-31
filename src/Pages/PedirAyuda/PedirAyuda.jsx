@@ -13,16 +13,6 @@ function PedirAyuda() {
               <li>Servicios</li>
               <li>Citas</li>
               <li>Consultorias</li>
-              <li>Datos</li>
-              <li>PQR</li>
-              <li>Servicios</li>
-              <li>Citas</li>
-              <li>Consultorias</li>
-              <li>Datos</li>
-              <li>PQR</li>
-              <li>Servicios</li>
-              <li>Citas</li>
-              <li>Consultorias</li>
             </ul>
           </aside>
   
