@@ -7,6 +7,7 @@ import PedirAyuda from './Pages/PedirAyuda/PedirAyuda';
 import Reportes from './Pages/Reportes/Reportes';
 import RegisterPage from './Pages/Register/Register';
 import FinancialStatus from './Pages/DatasAdmin/DatasAdmin';
+import TicketDetails from './Pages/DatasAdminGestion/DatasDetails';
 
 function App() {
   
@@ -19,7 +20,8 @@ function App() {
         <Route path="/principal" element={<PrincipalPage />} />
         <Route path="/pedirAyuda" element={<PedirAyuda />} />
         <Route path='/reportar' element={<Reportes/>} />
-        <Route path="/tester" element={<FinancialStatus />} />
+        <Route path="/managment_tickets" element={<FinancialStatus />} />
+        <Route path="/tickets/:ticketId" element={<TicketDetails />} />
       </Routes>
     </Router>
   );
