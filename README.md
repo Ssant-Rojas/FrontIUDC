@@ -112,19 +112,18 @@ Este proyecto es una aplicación React para la gestión de informes financieros 
       "fechaClasificacion": "2024-09-15T10:00:00",
       "plazoDiasRespuesta": 45
       }'
-    ```
+  ```
 
 ## Estructura del Proyecto
 
 ```
-Copiar código
-📂 src
- ┣ 📂 components
- ┃ ┗ 📂 Sidebar
- ┃ ┃ ┗ 📜 Sidebar.js       # Componente de la barra lateral
- ┣ 📂 pages
- ┃ ┗ 📜 FinancialStatus.js  # Página principal con la tabla de datos financieros y PQRs
- ┣ 📂 styles
- ┃ ┗ 📜 DatasAdmin.css      # Estilos para la página de administración de datos
- ┗ 📜 App.js                # Componente principal de la aplicación
+    📂 src
+     ┣ 📂 components
+     ┃ ┗ 📂 Sidebar
+     ┃ ┃ ┗ 📜 Sidebar.js       # Componente de la barra lateral
+     ┣ 📂 pages
+     ┃ ┗ 📜 FinancialStatus.js  # Página principal con la tabla de datos financieros y PQRs
+     ┣ 📂 styles
+     ┃ ┗ 📜 DatasAdmin.css      # Estilos para la página de administración de datos
+     ┗ 📜 App.js                # Componente principal de la aplicación
 ```
