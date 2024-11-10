@@ -36,8 +36,7 @@ Este proyecto es una aplicación React para la gestión de informes financieros 
 ## Crear un PQR
 ## Para crear un nuevo PQR, puedes utilizar el siguiente formato de datos:
 
-  bash```
-    Copiar código
+    ```
     curl --location 'http://localhost:8080/api/pqrs' \
     --header 'Content-Type: application/json' \
     --header 'Authorization: Bearer <token>' \
@@ -48,7 +47,8 @@ Este proyecto es una aplicación React para la gestión de informes financieros 
         "nombreCaso": "Nombre del Caso",
         "idTipologia": 2,
         "plazoDiasRespuesta": 30
-    }'```
+    }'
+    ```
 ## Obtener un PQR por ID
 ## Para obtener los datos de un PQR específico por su ID:
 
