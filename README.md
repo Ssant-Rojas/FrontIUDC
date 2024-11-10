@@ -52,63 +52,71 @@ Este proyecto es una aplicación React para la gestión de informes financieros 
 ## Obtener un PQR por ID
 ## Para obtener los datos de un PQR específico por su ID:
 
-  bash```
-  curl -X GET http://localhost:8080/api/pqrs/{id}
-    ```
+  ```
+    curl -X GET http://localhost:8080/api/pqrs/{id}
+  ```
 ## Cargar un Documento
 ## Para cargar un documento relacionado con un PQR:
 
-  bash```
+  ```
     curl --location 'http://localhost:8080/api/documentos/upload' \
     --header 'Authorization: Bearer <token>' \
     --form 'file=@"/ruta/al/archivo.docx"' \
     --form 'idTipologia="1"'
-    ```
+  ```
 ## Login de Usuario
 ## Para autenticar a un usuario:
 
-bash```
-  Copiar código
-  curl --location 'http://localhost:8080/api/auth/login' \
-  --header 'Content-Type: application/json' \
-  --data-raw '{
-      "email": "juan.perez@example.com",
-      "pass": "password123"
-  }'```
+
+```
+      Copiar código
+      curl --location 'http://localhost:8080/api/auth/login' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+          "email": "juan.perez@example.com",
+          "pass": "password123"
+      }'
+  ```
 ## Crear Usuario
 ## Para crear un nuevo usuario en el sistema:
 
-  bash```
-  curl --location 'http://localhost:8080/api/personas' \
-  --header 'Content-Type: application/json' \
-  --data-raw '{
-      "nombres": "Juan",
-      "apellidos": "Pérez",
-      "email": "juan.perez@example.com",
-      "password": "password123",
-      "celular": "3112345678",
-      "tipoUsuario": "A",
-      "fechaCreacion": "2024-09-12T12:00:00"
-  }'```
+  ```
+      curl --location 'http://localhost:8080/api/personas' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+          "nombres": "Juan",
+          "apellidos": "Pérez",
+          "email": "juan.perez@example.com",
+          "password": "password123",
+          "celular": "3112345678",
+          "tipoUsuario": "A",
+          "fechaCreacion": "2024-09-12T12:00:00"
+      }'
+  ```
+
 ## Actualizar un PQR por ID
+
 ## Para actualizar los datos de un PQR específico por su ID:
 
-bash```
-curl -X PUT http://localhost:8080/api/pqrs/{id} \
--H "Content-Type: application/json" \
--H "Authorization: Bearer <token>" \
--d '{
-    "idPersona": 1,
-    "idPrograma": 1,
-    "idDocumento": 1,
-    "nombreCaso": "Nuevo Nombre del Caso",
-    "idTipologia": 3,
-    "fechaCierreCaso": "2024-10-01T15:30:00",
-    "fechaClasificacion": "2024-09-15T10:00:00",
-    "plazoDiasRespuesta": 45
-}'```
+  ```
+  curl -X PUT http://localhost:8080/api/pqrs/{id} \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+      "idPersona": 1,
+      "idPrograma": 1,
+      "idDocumento": 1,
+      "nombreCaso": "Nuevo Nombre del Caso",
+      "idTipologia": 3,
+      "fechaCierreCaso": "2024-10-01T15:30:00",
+      "fechaClasificacion": "2024-09-15T10:00:00",
+      "plazoDiasRespuesta": 45
+      }'
+    ```
+
 ## Estructura del Proyecto
-bash```
+
+```
 Copiar código
 📂 src
  ┣ 📂 components
@@ -118,4 +126,5 @@ Copiar código
  ┃ ┗ 📜 FinancialStatus.js  # Página principal con la tabla de datos financieros y PQRs
  ┣ 📂 styles
  ┃ ┗ 📜 DatasAdmin.css      # Estilos para la página de administración de datos
- ┗ 📜 App.js                # Componente principal de la aplicación```
+ ┗ 📜 App.js                # Componente principal de la aplicación
+```
