@@ -132,14 +132,18 @@ curl -X PUT http://localhost:8080/api/pqrs/{id} \
 ```
 # Diagrama de Componentes
 
+# Casos de uso
 ![Diagrama de Componentes](Images/Casos_Uso.png)
+
+# Diagrama de Clases
 
 ![Diagrama de Componentes](Images/Diagrama_Clases_Login.png)
 
+# Diagrama de Componentes
 
 ![Diagrama de Componentes](Images/Diagrama_Componentes.png)
 
-
+# Diagrama de Secuencia
 
 ![Diagrama de Componentes](Images/Diagrama_Secuencia_Test.png)
 
