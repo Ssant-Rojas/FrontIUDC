@@ -5,7 +5,6 @@ import backgroundImage from '../../assets/Sede-verde-capas.jpg';
 
 const server = 'http://localhost:8080';
 
-
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -27,6 +26,11 @@ function Login() {
       });
 
       if (response.ok) {
+        // Almacenar el token JWT en localStorage o sessionStorage
+        const data = await response.json();
+        localStorage.setItem('authToken', data.token); // Ajusta esto según la estructura de tu respuesta
+
+        // Redirigir al usuario a la página principal
         navigate('/principal');
       } else {
         alert('Credenciales incorrectas');
@@ -36,9 +40,11 @@ function Login() {
       alert('Hubo un problema con el inicio de sesión');
     }
   };
+
   const handleRegister = () => {
     navigate('/register');
   };
+
   return (
     <div className="Main-login" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url(${backgroundImage})` }}>
       <div className="Letters">

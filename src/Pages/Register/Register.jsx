@@ -12,13 +12,15 @@ function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [celular, setCelular] = useState('');
-  const tipoUsuario = 'A'; 
-  const fechaCreacion = new Date().toISOString(); 
+  const tipoUsuario = 'A';  
+  const fechaCreacion = new Date().toISOString();  
+
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  
 
     try {
+   
       const response = await fetch(`${server}/api/personas`, {
         method: 'POST',
         headers: {
@@ -36,7 +38,9 @@ function RegisterPage() {
       });
 
       if (response.ok) {
-        navigate('/principal');
+        
+        alert('Registro exitoso. Inicia sesión para continuar');
+        navigate('/');
       } else {
         alert('Error en el registro');
       }
@@ -47,7 +51,7 @@ function RegisterPage() {
   };
 
   const handleLoginRedirect = () => {
-    navigate('/'); // Redirige a la página de inicio de sesión
+    navigate('/'); 
   };
 
   return (
@@ -104,7 +108,7 @@ function RegisterPage() {
             </div>
             <button className="login-button" type="submit">Registrarse</button>
           </form>
-          <a  onClick={handleLoginRedirect}>Iniciar sesion</a>
+          <a onClick={handleLoginRedirect}>Ya tienes cuenta? Inicia sesión</a>
         </div>
       </div>
     </div>
