@@ -130,7 +130,7 @@ curl -X PUT http://localhost:8080/api/pqrs/{id} \
  ┃ ┗ 📜 DatasAdmin.css      # Estilos para la página de administración de datos
  ┗ 📜 App.js                # Componente principal de la aplicación
 ```
-#Diagrama de Componentes
+# Diagrama de Componentes
 
 ![Diagrama de Componentes](Images/Casos_Uso.png)
 
@@ -141,7 +141,7 @@ curl -X PUT http://localhost:8080/api/pqrs/{id} \
 
 
 
-![Diagrama de Componentes](Images/Diagrama_Secuancia_Test.png)
+![Diagrama de Componentes](Images/Diagrama_Secuencia_Test.png)
 
 
 
