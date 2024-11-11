@@ -16,6 +16,7 @@ Este proyecto es una aplicación React para la gestión de informes financieros 
   - [Crear Usuario](#crear-usuario)
   - [Actualizar un PQR por ID](#actualizar-un-pqr-por-id)
 - [Estructura del Proyecto](#estructura-del-proyecto)
+- [Diagrama de Componentes](#diagrama-de-componentes)
 - [Licencia](#licencia)
 
 ## Requisitos Previos
@@ -31,99 +32,127 @@ Este proyecto es una aplicación React para la gestión de informes financieros 
    git clone https://github.com/tu-usuario/tu-repositorio.git
    cd tu-repositorio
    npm install
-   ```
-2. Uso de la Aplicación
-## Crear un PQR
-## Para crear un nuevo PQR, puedes utilizar el siguiente formato de datos:
-
-    ```
-    curl --location 'http://localhost:8080/api/pqrs' \
-    --header 'Content-Type: application/json' \
-    --header 'Authorization: Bearer <token>' \
-    --data '{
-        "idPersona": 1,
-        "idPrograma": 1,
-        "idDocumento": 1,
-        "nombreCaso": "Nombre del Caso",
-        "idTipologia": 2,
-        "plazoDiasRespuesta": 30
-    }'
-    ```
-## Obtener un PQR por ID
-## Para obtener los datos de un PQR específico por su ID:
-
-  ```
-    curl -X GET http://localhost:8080/api/pqrs/{id}
-  ```
-## Cargar un Documento
-## Para cargar un documento relacionado con un PQR:
-
-  ```
-    curl --location 'http://localhost:8080/api/documentos/upload' \
-    --header 'Authorization: Bearer <token>' \
-    --form 'file=@"/ruta/al/archivo.docx"' \
-    --form 'idTipologia="1"'
-  ```
-## Login de Usuario
-## Para autenticar a un usuario:
-
-
+Inicia el servidor:
+```bash
+npm start
 ```
-      Copiar código
-      curl --location 'http://localhost:8080/api/auth/login' \
-      --header 'Content-Type: application/json' \
-      --data-raw '{
-          "email": "juan.perez@example.com",
-          "pass": "password123"
-      }'
-  ```
-## Crear Usuario
-## Para crear un nuevo usuario en el sistema:
+# Uso de la Aplicación
 
-  ```
-      curl --location 'http://localhost:8080/api/personas' \
-      --header 'Content-Type: application/json' \
-      --data-raw '{
-          "nombres": "Juan",
-          "apellidos": "Pérez",
-          "email": "juan.perez@example.com",
-          "password": "password123",
-          "celular": "3112345678",
-          "tipoUsuario": "A",
-          "fechaCreacion": "2024-09-12T12:00:00"
-      }'
-  ```
+1. Crear un PQR
+Para crear un nuevo PQR, puedes utilizar el siguiente formato de datos:
 
-## Actualizar un PQR por ID
-
-## Para actualizar los datos de un PQR específico por su ID:
-
-  ```
-  curl -X PUT http://localhost:8080/api/pqrs/{id} \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <token>" \
-  -d '{
-      "idPersona": 1,
-      "idPrograma": 1,
-      "idDocumento": 1,
-      "nombreCaso": "Nuevo Nombre del Caso",
-      "idTipologia": 3,
-      "fechaCierreCaso": "2024-10-01T15:30:00",
-      "fechaClasificacion": "2024-09-15T10:00:00",
-      "plazoDiasRespuesta": 45
-      }'
-  ```
-
-## Estructura del Proyecto
-
+```bash
+curl --location 'http://localhost:8080/api/pqrs' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <token>' \
+--data '{
+    "idPersona": 1,
+    "idPrograma": 1,
+    "idDocumento": 1,
+    "nombreCaso": "Nombre del Caso",
+    "idTipologia": 2,
+    "plazoDiasRespuesta": 30
+}'
 ```
-    📂 src
-     ┣ 📂 components
-     ┃ ┗ 📂 Sidebar
-     ┃ ┃ ┗ 📜 Sidebar.js       # Componente de la barra lateral
-     ┣ 📂 pages
-     ┃ ┗ 📜 FinancialStatus.js  # Página principal con la tabla de datos financieros y PQRs
-     ┣ 📂 styles
-     ┃ ┗ 📜 DatasAdmin.css      # Estilos para la página de administración de datos
-     ┗ 📜 App.js                # Componente principal de la aplicación
+# Obtener un PQR por ID
+
+Para obtener los datos de un PQR específico por su ID:
+
+```bash
+curl -X GET http://localhost:8080/api/pqrs/{id}
+Cargar un Documento
+Para cargar un documento relacionado con un PQR:
 ```
+
+```bash
+curl --location 'http://localhost:8080/api/documentos/upload' \
+--header 'Authorization: Bearer <token>' \
+--form 'file=@"/ruta/al/archivo.docx"' \
+--form 'idTipologia="1"'
+```
+
+# Login de Usuario
+Para autenticar a un usuario:
+
+```bash
+curl --location 'http://localhost:8080/api/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "juan.perez@example.com",
+    "pass": "password123"
+}'
+```bash
+
+# Crear Usuario
+Para crear un nuevo usuario en el sistema:
+
+```bash
+curl --location 'http://localhost:8080/api/personas' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nombres": "Juan",
+    "apellidos": "Pérez",
+    "email": "juan.perez@example.com",
+    "password": "password123",
+    "celular": "3112345678",
+    "tipoUsuario": "A",
+    "fechaCreacion": "2024-09-12T12:00:00"
+}'
+```
+
+# Actualizar un PQR por ID
+Para actualizar los datos de un PQR específico por su ID:
+
+```bash
+curl -X PUT http://localhost:8080/api/pqrs/{id} \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <token>" \
+-d '{
+    "idPersona": 1,
+    "idPrograma": 1,
+    "idDocumento": 1,
+    "nombreCaso": "Nuevo Nombre del Caso",
+    "idTipologia": 3,
+    "fechaCierreCaso": "2024-10-01T15:30:00",
+    "fechaClasificacion": "2024-09-15T10:00:00",
+    "plazoDiasRespuesta": 45
+}'
+```
+# Estructura del Proyecto
+```bash
+📂 src
+ ┣ 📂 components
+ ┃ ┗ 📂 Sidebar
+ ┃ ┃ ┗ 📜 Sidebar.js       # Componente de la barra lateral
+ ┣ 📂 pages
+ ┃ ┗ 📜 FinancialStatus.js  # Página principal con la tabla de datos financieros y PQRs
+ ┣ 📂 styles
+ ┃ ┗ 📜 DatasAdmin.css      # Estilos para la página de administración de datos
+ ┗ 📜 App.js                # Componente principal de la aplicación
+```
+#Diagrama de Componentes
+
+```markdown
+![Diagrama de Componentes](.\Images\Casos_Uso.png)
+```
+
+```markdown
+![Diagrama de Componentes](.\Images\Diagrama_Clases_Login.png)
+```
+
+```markdown
+![Diagrama de Componentes](.\Images\Diagrama_Componentes.png)
+```
+
+```markdown
+![Diagrama de Componentes](.\Images\Diagrama_Secuancia_Test.png)
+```
+
+
+Autores:
+
+Kevin Santiago Rojas Rosas
+Sergio Ayala
+
+
+
