@@ -132,21 +132,17 @@ curl -X PUT http://localhost:8080/api/pqrs/{id} \
 ```
 #Diagrama de Componentes
 
-```markdown
 ![Diagrama de Componentes](.\Images\Casos_Uso.png)
-```
 
-```markdown
 ![Diagrama de Componentes](.\Images\Diagrama_Clases_Login.png)
-```
 
-```markdown
+
 ![Diagrama de Componentes](.\Images\Diagrama_Componentes.png)
-```
 
-```markdown
+
+
 ![Diagrama de Componentes](.\Images\Diagrama_Secuancia_Test.png)
-```
+
 
 
 Autores:
