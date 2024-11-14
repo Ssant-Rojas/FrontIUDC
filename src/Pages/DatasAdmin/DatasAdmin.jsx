@@ -11,7 +11,7 @@ function FinancialStatus() {
     { id: 3, title: 'Estado de Resultados', description: 'Estado de resultados del último trimestre', file: 'estado_resultados.pdf', category: 'Finanzas' },
   ]);
   const itemsPerPage = 8;
-  const title = "Estado Financiero"; // Definimos el título aquí
+  const title = "Estado Financiero"; 
 
   const handlePageChange = (newPage) => {
     setPage(newPage);

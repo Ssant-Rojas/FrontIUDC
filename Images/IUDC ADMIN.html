@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://localhost:5173/pedirAyuda -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="module">
+import RefreshRuntime from "/@react-refresh"
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true
+</script>
+
+    <script type="module" src="./IUDC ADMIN_files/client"></script>
+
+    
+    <link rel="stylesheet" href="./IUDC ADMIN_files/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="http://localhost:5173/vite.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUDC ADMIN</title>
+  <style type="text/css" id="operaUserStyle"></style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/components/Header/HeaderStyles.css">.Header-TopBar {
+    background-color: #1D2256;
+    height: 60px; 
+    display: flex;
+    align-items: center; 
+    border-bottom: 3px solid orange; 
+    padding: 0 20px; 
+}
+
+.Logo-Space {
+    display: flex;
+    align-items: center; 
+}
+
+.Logo img {
+    height: 70px; 
+    width: auto; 
+    object-fit: contain; 
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Login/Login.css">.Main-login {
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('/src/assets/Sede-verde-capas.jpg'); 
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+.Letters {
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    max-width: 400px;
+    width: 100%;
+}
+
+.Letters h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+.Letters p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+.input-group {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-button {
+    width: 100%; 
+    background-color: #ff6600; 
+    color: white;
+    border: none;
+    padding: 12px 0; 
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em; 
+}
+
+.login-button:hover {
+    background-color: #ff6600; 
+}
+
+.a {
+    color: white;
+    margin-top: 1em;
+    display: block;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #FF6600; 
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Principal/Principal.css">/* Estilo para el contenedor principal */
+.main-container {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #dfeef5;
+    height: inherit;
+  }
+  
+  /* Sección de búsqueda */
+  .header-search {
+    background: linear-gradient(90deg, #003366, #0052cc);
+    padding: 50px;
+    color: white;
+  }
+  
+  .header-search h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+  }
+  
+  .search-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .search-box input {
+    padding: 10px;
+    width: 400px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .search-box .search-button {
+    padding: 10px 20px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .search-button i {
+    color: #0052cc;
+    font-size: 1.2rem;
+    height: max-content;
+  }
+  
+  /* Opciones */
+  .options-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    padding: 20px;
+  }
+  
+  /* Estilo para las tarjetas de opciones */
+  .option {
+    background-color: white;
+    padding: 20px;
+    width: fit-content; 
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;
+  }
+  
+  /* Efecto hover para las tarjetas */
+  .option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  }
+  
+  /* Estilo para los títulos en las tarjetas */
+  .option h2 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  /* Estilo para los párrafos en las tarjetas */
+  .option p {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  /* Estilo para los íconos en las tarjetas */
+  .option-icon {
+    font-size: 2rem;
+    color: #ff6600;
+  }
+  
+  /* Efecto hover para los íconos */
+  .option:hover .option-icon {
+    color: #ff3300; /* Cambia el color del ícono al pasar el mouse */
+  }
+  </style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/PedirAyuda/PedirAyuda.css">/* App.css
+
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    color: #ff6600;
+  }
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  nav.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003366;
+    padding: 10px 20px;
+    color: white;
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-icon {
+    background-color: #f60;
+    border-radius: 50%;
+    padding: 10px;
+    margin-left: 10px;
+  }
+  
+  .content {
+    display: flex;
+    padding: 20px;
+  }
+  
+  /* Sidebar */
+  .categories {
+    width: 250px;
+    background-color: white;
+    padding: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+  }
+  
+  .categories h3 {
+    margin-bottom: 10px;
+  }
+  
+  .categories ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .categories li {
+    margin-bottom: 10px;
+  }
+  
+  /* Main Section */
+  .popular-items {
+    flex-grow: 1;
+  }
+ 
+  
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .item h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #ff6600;
+  }
+  
+  .item p {
+    color: #666;
+  }
+  
+  .buttonp {
+    margin-top: 10px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0052cc;
+  }
+  
+  .view-toggle button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .view-toggle button.active {
+    color: #0052cc;
+  }</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Pagespages/Reportes/Reportes.css">
+.form-container {
+    max-width: 100vh; 
+    height: 100vh;      
+    margin: 0 auto;         
+    padding: 20px;          
+    background-color: #f9f9f9;
+    border: 1px solid #ddd; 
+    overflow-y: auto;      
+    height: 100vh;          
+}
+
+.form-container h1 {
+    color: #f27405;         
+}
+
+.form-container label {
+    display: block;        
+    margin-bottom: 8px;    
+    font-weight: bold;      
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;           
+    padding: 8px;          
+    margin-bottom: 20px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px;   
+}
+
+.form-container button {
+    padding: 10px 20px;    
+    background-color: #f27405; 
+    color: white;          
+    border: none;          
+    border-radius: 4px;    
+    cursor: pointer;       
+}
+
+.form-container button:hover {
+    background-color: #e06304; 
+}
+
+  
+  .form-container h1 {
+    color: #f27405;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-container input,
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container button {
+    padding: 10px 20px;
+    background-color: #f27405;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background-color: #e06304;
+  }
+  
+
+  /* Reportes.css */
+
+.file-input-container {
+  margin-bottom: 20px;
+}
+
+.file-input-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.file-input {
+  display: none; 
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f27405;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #e06304;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Pagespages/Citas/Citas.css">
+.form-container {
+    max-width: 100vh; 
+    height: 100vh;      
+    margin: 0 auto;         
+    padding: 20px;          
+    background-color: #f9f9f9;
+    border: 1px solid #ddd; 
+    overflow-y: auto;      
+    height: 100vh;          
+}
+
+.form-container h1 {
+    color: #f27405;         
+}
+
+.form-container label {
+    display: block;        
+    margin-bottom: 8px;    
+    font-weight: bold;      
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;           
+    padding: 8px;          
+    margin-bottom: 20px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px;   
+}
+
+.form-container button {
+    padding: 10px 20px;    
+    background-color: #f27405; 
+    color: white;          
+    border: none;          
+    border-radius: 4px;    
+    cursor: pointer;       
+}
+
+.form-container button:hover {
+    background-color: #e06304; 
+}
+
+  
+  .form-container h1 {
+    color: #f27405;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-container input,
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container button {
+    padding: 10px 20px;
+    background-color: #f27405;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background-color: #e06304;
+  }
+  
+
+  /* Reportes.css */
+
+.file-input-container {
+  margin-bottom: 20px;
+}
+
+.file-input-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.file-input {
+  display: none; 
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f27405;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #e06304;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Register/Register.css">.Main-login {
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('/src/assets/Sede-verde-capas.jpg'); 
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+.Letters {
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    max-width: 400px;
+    width: 100%;
+}
+
+.Letters h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+.Letters p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+.input-group {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-button {
+    width: 100%; 
+    background-color: #ff6600; 
+    color: white;
+    border: none;
+    padding: 12px 0; 
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em; 
+}
+
+.login-button:hover {
+    background-color: #ff6600; 
+}
+
+.a {
+    color: white;
+    margin-top: 1em;
+    display: block;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #FF6600; 
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Pagespages/Matriculas/Matriculas.css">
+.form-container {
+    max-width: 100vh; 
+    height: 100vh;      
+    margin: 0 auto;         
+    padding: 20px;          
+    background-color: #f9f9f9;
+    border: 1px solid #ddd; 
+    overflow-y: auto;      
+    height: 100vh;          
+}
+
+.form-container h1 {
+    color: #f27405;         
+}
+
+.form-container label {
+    display: block;        
+    margin-bottom: 8px;    
+    font-weight: bold;      
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;           
+    padding: 8px;          
+    margin-bottom: 20px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px;   
+}
+
+.form-container button {
+    padding: 10px 20px;    
+    background-color: #f27405; 
+    color: white;          
+    border: none;          
+    border-radius: 4px;    
+    cursor: pointer;       
+}
+
+.form-container button:hover {
+    background-color: #e06304; 
+}
+
+  
+  .form-container h1 {
+    color: #f27405;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-container input,
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container button {
+    padding: 10px 20px;
+    background-color: #f27405;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background-color: #e06304;
+  }
+  
+
+  /* Reportes.css */
+
+.file-input-container {
+  margin-bottom: 20px;
+}
+
+.file-input-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.file-input {
+  display: none; 
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f27405;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #e06304;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Pagespages/Aplazar/Aplazar.css">
+.form-container {
+    max-width: 100vh; 
+    height: 100vh;      
+    margin: 0 auto;         
+    padding: 20px;          
+    background-color: #f9f9f9;
+    border: 1px solid #ddd; 
+    overflow-y: auto;      
+    height: 100vh;          
+}
+
+.form-container h1 {
+    color: #f27405;         
+}
+
+.form-container label {
+    display: block;        
+    margin-bottom: 8px;    
+    font-weight: bold;      
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;           
+    padding: 8px;          
+    margin-bottom: 20px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px;   
+}
+
+.form-container button {
+    padding: 10px 20px;    
+    background-color: #f27405; 
+    color: white;          
+    border: none;          
+    border-radius: 4px;    
+    cursor: pointer;       
+}
+
+.form-container button:hover {
+    background-color: #e06304; 
+}
+
+  
+  .form-container h1 {
+    color: #f27405;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-container input,
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container button {
+    padding: 10px 20px;
+    background-color: #f27405;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background-color: #e06304;
+  }
+  
+
+  /* Reportes.css */
+
+.file-input-container {
+  margin-bottom: 20px;
+}
+
+.file-input-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.file-input {
+  display: none; 
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f27405;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #e06304;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/components/Sidebar/Sidebar.css">.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .data-buttons {
+    margin-top: 20px;
+  }
+  
+  button {
+    margin: 10px 0;
+    padding: 10px;
+    cursor: pointer;
+  }
+  </style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/DatasAdmin/DatasAdmin.css">.financial-status-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .financial-status-container h2 {
+    text-align: center;
+    color: #003366;
+  }
+  
+  .financial-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .financial-table th, .financial-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .financial-table th {
+    background-color: #003366;
+    color: white;
+  }
+  
+  .even-row {
+    background-color: #f2f2f2;
+  }
+  
+  .odd-row {
+    background-color: #ddd;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    display: inline-block;
+    padding: 8px 12px;
+    color: #003366;
+    font-weight: bold;
+  }
+  
+
+  /* .star {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+}
+.star:before {
+   content: "\2605";
+   position: absolute;
+   visibility:visible;
+}
+.star:checked:before {
+   content: "\2606";
+   position: absolute;
+} */</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/DatasAdminGestion/DatasDetails.css">/* TicketDetails.css */
+.ticket-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+  }
+  
+  .ticket-details h1 {
+    color: #333;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .field-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .field-group label {
+    width: 250px;
+    font-weight: bold;
+    color: #666;
+  }
+  
+  .field-group div {
+    flex: 1;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .field-group.large div {
+    background-color: #f5f5f5;
+    white-space: pre-wrap; /* Permite saltos de línea en el texto */
+  }
+  
+  pre {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .large div {
+    min-height: 150px;
+  }
+  </style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Pagespages/Agendamientos/Agendamientos.css">
+.form-container {
+    max-width: 100vh; 
+    height: 100vh;      
+    margin: 0 auto;         
+    padding: 20px;          
+    background-color: #f9f9f9;
+    border: 1px solid #ddd; 
+    overflow-y: auto;      
+    height: 100vh;          
+}
+
+.form-container h1 {
+    color: #f27405;         
+}
+
+.form-container label {
+    display: block;        
+    margin-bottom: 8px;    
+    font-weight: bold;      
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;           
+    padding: 8px;          
+    margin-bottom: 20px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px;   
+}
+
+.form-container button {
+    padding: 10px 20px;    
+    background-color: #f27405; 
+    color: white;          
+    border: none;          
+    border-radius: 4px;    
+    cursor: pointer;       
+}
+
+.form-container button:hover {
+    background-color: #e06304; 
+}
+
+  
+  .form-container h1 {
+    color: #f27405;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-container input,
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container button {
+    padding: 10px 20px;
+    background-color: #f27405;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background-color: #e06304;
+  }
+  
+
+  /* Reportes.css */
+
+.file-input-container {
+  margin-bottom: 20px;
+}
+
+.file-input-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.file-input {
+  display: none; 
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f27405;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #e06304;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/Pages/Pagespages/PQR/pqr.css">
+.form-container {
+    max-width: 100vh; 
+    height: 100vh;      
+    margin: 0 auto;         
+    padding: 20px;          
+    background-color: #f9f9f9;
+    border: 1px solid #ddd; 
+    overflow-y: auto;      
+    height: 100vh;          
+}
+
+.form-container h1 {
+    color: #f27405;         
+}
+
+.form-container label {
+    display: block;        
+    margin-bottom: 8px;    
+    font-weight: bold;      
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;           
+    padding: 8px;          
+    margin-bottom: 20px;   
+    border: 1px solid #ccc; 
+    border-radius: 4px;   
+}
+
+.form-container button {
+    padding: 10px 20px;    
+    background-color: #f27405; 
+    color: white;          
+    border: none;          
+    border-radius: 4px;    
+    cursor: pointer;       
+}
+
+.form-container button:hover {
+    background-color: #e06304; 
+}
+
+  
+  .form-container h1 {
+    color: #f27405;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-container input,
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container button {
+    padding: 10px 20px;
+    background-color: #f27405;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background-color: #e06304;
+  }
+  
+
+  /* Reportes.css */
+
+.file-input-container {
+  margin-bottom: 20px;
+}
+
+.file-input-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.file-input {
+  display: none; 
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f27405;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #e06304;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/bonss/Dev/FrontUIDC/src/index.css">html, body, #root, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  text-decoration: none;
+  color: #003366;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+header {
+  flex-shrink: 0; 
+  background-color: #1D2256;
+  padding: 10px; 
+}
+
+.Main-login {
+  flex-grow: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1D2256;
+  background-image: url("./assets/sede-verde 1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style><style type="text/css"></style></head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./IUDC ADMIN_files/main.jsx"></script>
+  
+
+</body></html>

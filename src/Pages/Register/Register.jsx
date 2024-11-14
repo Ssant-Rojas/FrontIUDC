@@ -40,7 +40,7 @@ function RegisterPage() {
       if (response.ok) {
         
         alert('Registro exitoso. Inicia sesión para continuar');
-        navigate('/');
+        navigate('/login');
       } else {
         alert('Error en el registro');
       }
@@ -51,7 +51,7 @@ function RegisterPage() {
   };
 
   const handleLoginRedirect = () => {
-    navigate('/'); 
+    navigate('/login'); 
   };
 
   return (
@@ -108,7 +108,7 @@ function RegisterPage() {
             </div>
             <button className="login-button" type="submit">Registrarse</button>
           </form>
-          <a onClick={handleLoginRedirect}>Ya tienes cuenta? Inicia sesión</a>
+          <a class='a' onClick={handleLoginRedirect}>Ya tienes cuenta? Inicia sesión</a>
         </div>
       </div>
     </div>

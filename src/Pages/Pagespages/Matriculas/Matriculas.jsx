@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import './Reportes.css';
+import './Matriculas.css';
 
-function Reportes() {
+function Matriculas() {
     const [usr, setUsr] = useState('');
 
   const [formData, setFormData] = useState({
     telefono: '',
     carrera: '',
-    cantidadAfec: '',
     Solicitud: '',
     DescripcionDetallada: '',
     archivo: null,
@@ -29,9 +28,9 @@ function Reportes() {
   };
   return (
     <div className="form-container">
-      <h1>Pagos</h1>
+      <h1>Matriculas</h1>
       <p>
-      Consulta y realiza tus pagos pendientes de matrículas o servicios.</p>
+      Consulta o agenda Matriculas</p>
       <form onSubmit={handleSubmit}>
     <label>Usuario que solicita</label>
     <input type="text" value={usr} disabled />
@@ -39,12 +38,13 @@ function Reportes() {
     <label>Teléfono de contacto *</label>
     <input type="text" name="telefono" value={formData.telefono} onChange={handleChange} required />
 
-    <label>Tipo de pago *</label>
+    <label>Tipo de matriculas *</label>
     <select name="tipoSolicitud" value={formData.tipoSolicitud} onChange={handleChange} required>
         <option value="">--Seleccione una opción--</option>
-        <option value="Petición">Bancos</option>
-        <option value="Queja">Efectivo</option>
-        <option value="Reclamo">Otros</option>
+        <option value="ingreso">Nuevo ingreso</option>
+        <option value="inscripción">Inscripcion</option>
+        <option value="Información">Información</option>
+        <option value="otros">Otros</option>
     </select>
 
     <label>Asunto de la solicitud *</label>
@@ -63,4 +63,4 @@ function Reportes() {
   );
 }
 
-export default Reportes;
+export default Matriculas;

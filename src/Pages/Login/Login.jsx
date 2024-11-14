@@ -26,11 +26,9 @@ function Login() {
       });
 
       if (response.ok) {
-        // Almacenar el token JWT en localStorage o sessionStorage
         const data = await response.json();
-        localStorage.setItem('authToken', data.token); // Ajusta esto según la estructura de tu respuesta
-
-        // Redirigir al usuario a la página principal
+        localStorage.setItem('authToken', data.token); 
+        
         navigate('/principal');
       } else {
         alert('Credenciales incorrectas');
@@ -72,7 +70,7 @@ function Login() {
             </div>
             <button className="login-button" type="submit">Ingresar</button>
           </form>
-          <a onClick={handleRegister}>Registrarse</a>
+          <a className='a' onClick={handleRegister}>Registrarse</a>
         </div>
       </div>
     </div>
