@@ -1,4 +1,4 @@
-import "./PedirAyuda.css"
+import "../../styles/PedirAyuda.css"
 import Item from "../../components/Items/Items.jsx"
 
 function PedirAyuda() {

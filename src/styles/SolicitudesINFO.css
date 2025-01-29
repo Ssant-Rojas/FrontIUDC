@@ -1,0 +1,94 @@
+/* Estilos generales para el resumen del ticket */
+.ticket-resumen {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Título del resumen */
+  .ticket-resumen h2 {
+    text-align: center;
+    color: #003366;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para cada grupo de campo */
+  .field-group {
+    margin-bottom: 15px;
+  }
+  
+  .field-group label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  /* Estilo para los valores de los campos */
+  .field-group div {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Estilo para el campo con descripción detallada */
+  .field-group.large {
+    margin-top: 20px;
+  }
+  
+  .field-group.large pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  /* Estilos para el enlace de archivo adjunto */
+  .field-group a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .field-group a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Diseño para el mensaje de "No especificado" */
+  .field-group div {
+    font-style: italic;
+    color: #888;
+  }
+  
+  /* Estilo para los botones de interacción con el archivo adjunto */
+  .field-group button {
+    margin-top: 10px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .field-group button:hover {
+    background-color: #00509e;
+  }
+  
+  /* Estilos generales para hacer el contenido más legible */
+  .ticket-resumen {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  

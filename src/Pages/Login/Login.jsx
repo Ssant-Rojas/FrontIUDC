@@ -1,4 +1,4 @@
-import './Login.css';
+import '../../styles/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import backgroundImage from '../../assets/Sede-verde-capas.jpg';
@@ -23,7 +23,7 @@ function Login() {
           email: email,
           pass: password,
         }),
-      });
+      });      
 
       if (response.ok) {
         const data = await response.json();

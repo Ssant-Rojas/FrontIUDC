@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Aplazar.css';
+import '../../../styles/Aplazar.css';
 
 function Aplazar() {
     const [usr, setUsr] = useState('');

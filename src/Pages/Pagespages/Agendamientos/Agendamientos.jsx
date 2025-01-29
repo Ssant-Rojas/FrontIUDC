@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Agendamientos.css';
+import '../../../styles/Agendamientos.css';
 
 function Agendamientos() {
     const [usr, setUsr] = useState('');
@@ -26,6 +26,7 @@ function Agendamientos() {
     e.preventDefault();
     console.log(formData);
   };
+  
   return (
     <div className="form-container">
       <h1>Agendamiento</h1>

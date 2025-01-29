@@ -14,6 +14,7 @@ import TicketDetails from './Pages/DatasAdminGestion/DatasDetails';
 import Agendamientos from './Pages/Pagespages/Agendamientos/Agendamientos';
 import Problemasquejasreclamos from './Pages/Pagespages/PQR/pqr';
 import SolicitudesPage from './Pages/Solicitudes/Solicitudes';
+import SolicitudesINFO from './Pages/SolicitudesINFO/SolicitudesINFO'
 
 function App() {
   
@@ -21,24 +22,31 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        {/*Rutas principales*/}
+        {/* Rutas principales */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/principal" element={<PrincipalPage />} />
         <Route path="/pedirAyuda" element={<PedirAyuda />} />
-        {/*Rutas citas*/}
+
+        {/* Rutas citas */}
         <Route path='/citas' element={<Citas/>} />
         <Route path='/matriculas' element={<Matriculas/>} />
         <Route path='/Aplazar' element={<Aplazar/>} />
         <Route path='/reportar' element={<Reportes/>} />
         <Route path='/agendamiento' element={<Agendamientos/>} />
         <Route path='/pqr' element={<Problemasquejasreclamos/>} />
-        {/*Rutas administrativas*/}
-        <Route path="/tickets" element={<FinancialStatus />} />
-        <Route path="/tickets/:ticketId" element={<TicketDetails />} />
-        <Route path="/solicitud" element={<SolicitudesPage />} />
 
+        {/* Rutas administrativas */}
+        <Route path="/admin/tickets" element={<FinancialStatus />} />
+        <Route path="/admin/tickets/:ticketId" element={<TicketDetails />} />
+        
+        {/* Rutas de usuario */}
+        <Route path="/tickets/:ticketId" element={<SolicitudesINFO />} />
+        
+        {/* Otras rutas */}
+        <Route path="/solicitud" element={<SolicitudesPage />} />
       </Routes>
+
     </Router>
   );
 }

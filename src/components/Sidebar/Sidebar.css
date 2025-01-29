@@ -1,17 +1,94 @@
+/* Estilo general de la barra lateral */
 .sidebar {
-    width: 200px;
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-right: 1px solid #ccc;
-  }
-  
-  .data-buttons {
-    margin-top: 20px;
-  }
-  
-  button {
-    margin: 10px 0;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
+  width: 250px;
+  background-color: #003366;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 30px;
+  box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Botones de la parte superior */
+.sidebar button {
+  background-color: #00509e;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 12px 0;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 60%;
+  transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+/* Hover para los botones */
+.sidebar button:hover {
+  background-color: #003366;
+  transform: scale(1.1); /* Efecto de zoom */
+}
+
+/* Contenedor de los botones de datos */
+.data-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Estilos de los botones dentro del contenedor de datos */
+.data-buttons button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 12px 0;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 80%;
+  transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+/* Hover para los botones de la sección "data-buttons" */
+.data-buttons button:hover {
+  background-color: #00509e;
+  transform: scale(1.05); /* Efecto de zoom en los botones */
+}
+
+/* Espaciado y estilo para los iconos */
+.sidebar button, .data-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar button span, .data-buttons button span {
+  margin-left: 10px; /* Espaciado entre el icono y el texto */
+  font-weight: bold;
+}
+
+/* Estilo del icono */
+.sidebar button i, .data-buttons button i {
+  font-size: 22px;
+}
+
+/* Agregar sombra a los botones */
+.sidebar button, .data-buttons button {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para los botones cuando están activos */
+.sidebar button.active, .data-buttons button.active {
+  background-color: #001f3d;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1); /* Efecto de aumento al estar activo */
+}

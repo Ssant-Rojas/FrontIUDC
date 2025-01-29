@@ -1,0 +1,132 @@
+/* Barra lateral compacta */
+.sidebar {
+  width: 200px;
+  background-color: #003366;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  font-size: 14px;
+  text-transform: uppercase;
+  display: block;
+  transition: background-color 0.3s ease;
+  margin: 8px 0;
+  border-radius: 4px;
+}
+
+.sidebar a:hover {
+  background-color: #00509e;
+}
+
+/* Contenedor de la tabla y la barra lateral */
+.financial-status-container {
+  display: block;
+  margin-left: 200px; /* Ancho de la barra lateral */
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilo de la tabla compacta */
+.financial-table-container {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.financial-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.financial-table th, .financial-table td {
+  padding: 8px 10px;  /* Reducir el padding */
+  text-align: left;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+
+.financial-table th {
+  background-color: #003366;
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.financial-table td {
+  background-color: #fff;
+  color: #333;
+}
+
+.even-row {
+  background-color: #f9f9f9;
+}
+
+.odd-row {
+  background-color: #f1f1f1;
+}
+
+.financial-table td a {
+  color: #00509e;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.financial-table td a:hover {
+  color: #003366;
+}
+
+/* Estilo de los checkboxes */
+.star {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Paginación compacta */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 6px 10px; /* Reducir tamaño de los botones */
+  margin: 0 6px;
+  background-color: transparent;
+  color: #003366;
+  border: 1px solid #003366;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #003366;
+  color: white;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  padding: 6px 12px;
+  font-weight: bold;
+  color: #003366;
+  font-size: 14px;
+}

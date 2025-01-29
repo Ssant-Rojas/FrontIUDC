@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Matriculas.css';
+import '../../../styles/Matriculas.css';
 
 function Matriculas() {
     const [usr, setUsr] = useState('');

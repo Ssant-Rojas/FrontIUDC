@@ -1,10 +1,11 @@
 .Header-TopBar {
-    background-color: #1D2256;
+    background-color: #1D2256; /* Fondo azul oscuro */
     height: 60px; 
     display: flex;
     align-items: center; 
     border-bottom: 3px solid orange; 
     padding: 0 20px; 
+    justify-content: space-between; /* Esto asegura que el logo se quede a la izquierda y el menú a la derecha */
 }
 
 .Logo-Space {
@@ -16,4 +17,21 @@
     height: 70px; 
     width: auto; 
     object-fit: contain; 
+}
+
+.Header-Menu {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end; /* Esto alinea los links a la derecha */
+}
+
+.Header-Link {
+    color: white; /* Color blanco para los enlaces */
+    margin-left: 20px; /* Espacio entre los enlaces */
+    text-decoration: none; /* Elimina el subrayado */
+    font-weight: 500; /* Peso de la fuente para que se vea más prominente */
+}
+
+.Header-Link:hover {
+    color: orange; /* Color cuando el mouse pasa por encima */
 }

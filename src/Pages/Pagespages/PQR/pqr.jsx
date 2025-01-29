@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './pqr.css';
+import '../../../styles/pqr.css';
 
 function Problemasquejasreclamos() {
     const [usr, setUsr] = useState('');

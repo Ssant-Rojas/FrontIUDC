@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import './DatasAdmin.css';
+import '../../styles/DatasAdmin.css';
 
 function FinancialStatus() {
   const [page, setPage] = useState(1);
