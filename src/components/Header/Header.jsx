@@ -1,15 +1,10 @@
-import './HeaderStyles.css';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import "./HeaderStyles.css";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function Header() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    // Verifica si el token de autenticación está presente en localStorage
-    const token = localStorage.getItem('authToken');
-    setIsAuthenticated(!!token);  // Si hay un token, el usuario está autenticado
-  }, []);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
     <div className="Header-TopBar">
@@ -25,9 +20,10 @@ function Header() {
           <>
             <Link to="/solicitud" className="Header-Link">Solicitudes</Link>
             <Link to="/admin/tickets" className="Header-Link">Admin Tickets</Link>
+            <button onClick={logout} className="Header-Link-Button">Cerrar Sesión</button>
           </>
         ) : (
-          <Link to="/login" className="Header-Link">Login</Link>
+          <Link to="/" className="Header-Link">Login</Link>
         )}
       </div>
     </div>

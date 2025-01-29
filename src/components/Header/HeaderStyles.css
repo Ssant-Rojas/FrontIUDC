@@ -35,3 +35,20 @@
 .Header-Link:hover {
     color: orange; /* Color cuando el mouse pasa por encima */
 }
+
+.Header-Link-Button {
+    background: rgba(255, 166, 0, 0.918);
+    padding: 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    color: #ffff;
+    font-weight: 500;
+    margin-left: 20px;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out; /* Agregamos una transición */
+}
+
+.Header-Link-Button:hover {
+    background-color: #1D2256;
+}

@@ -1,22 +1,22 @@
 .Main-login {
     display: flex;
     justify-content: center;
-    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('../../assets/Sede-verde-capas.jpg'); 
     align-items: center;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('../../assets/Sede-verde-capas.jpg'); 
     height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
 }
 
-
 .Letters {
-    background-color: rgba(255, 255, 255, 0.336);
+    background-color: rgba(255, 255, 255, 0.85); /* Mayor opacidad */
     padding: 40px;
     border-radius: 10px;
     text-align: center;
-    color: white;
+    color: #333; /* Mejor contraste */
     max-width: 400px;
     width: 100%;
 }
@@ -40,9 +40,16 @@
     width: 100%;
     padding: 12px;
     font-size: 1em;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #ff6600;
+    box-shadow: 0 0 8px rgba(255, 102, 0, 0.5);
+    outline: none;
 }
 
 .login-button {
@@ -60,16 +67,53 @@
 }
 
 .login-button:hover {
-    background-color: #ff6600; 
+    background-color: #e65c00; /* Más oscuro al pasar el cursor */
 }
 
-.a {
-    color: white;
-    margin-top: 1em;
-    display: block;
+.login-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.register-button {
+    display: inline-block;
+    background-color: transparent;
+    color: #ffff;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
     text-decoration: underline;
+    margin-top: 10px;
 }
 
-a:hover {
-    color: #FF6600; 
+.register-button:hover {
+    text-decoration: none;
+}
+
+
+@media (max-width: 600px) {
+    .Letters {
+        padding: 20px;
+        max-width: 300px;
+    }
+
+    .Letters h1 {
+        font-size: 2em;
+    }
+
+    .Letters p {
+        font-size: 1em;
+    }
+
+    .input-group input {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .login-button {
+        padding: 10px 0;
+        font-size: 1em;
+    }
 }

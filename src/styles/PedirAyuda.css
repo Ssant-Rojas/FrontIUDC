@@ -1,128 +1,129 @@
-/* App.css
+/* Contenedor principal */
+.main-container {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f6f9;
+  padding: 20px;
+  min-height: 100vh;
+}
 
-/* General */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-  }
-  li{
-    color: #ff6600;
-  }
-  .main-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  nav.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #003366;
-    padding: 10px 20px;
-    color: white;
-  }
-  
-  .logo {
-    height: 40px;
-  }
-  
-  .navbar-links {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-icon {
-    background-color: #f60;
-    border-radius: 50%;
-    padding: 10px;
-    margin-left: 10px;
-  }
-  
+/* 🔹 Contenido flexible */
+.content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* 🔹 Sección de categorías (barra lateral) */
+.categories {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+.categories h3 {
+  font-size: 1.3rem;
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+.categories ul {
+  list-style: none;
+  padding: 0;
+}
+
+.categories li {
+  margin-bottom: 10px;
+}
+
+.categories a {
+  text-decoration: none;
+  color: #0052cc;
+  font-size: 1rem;
+  font-weight: 500;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s ease-in-out;
+}
+
+.categories a:hover {
+  background: #ff6600;
+  color: white;
+}
+
+/* 🔹 Contenido principal */
+.popular-items {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔹 Header */
+.popular-items .header h2 {
+  font-size: 1.5rem;
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+/* 🔹 Grid de elementos */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+  gap: 20px;
+}
+
+/* 🔹 Ajustes para `Item` */
+.item {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.item h3 {
+  font-size: 1.2rem;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.item p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.item .buttonp {
+  background: #0052cc;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.item .buttonp:hover {
+  background: #ff6600;
+}
+
+/* 🔹 Responsividad */
+@media screen and (max-width: 768px) {
   .content {
-    display: flex;
-    padding: 20px;
+    flex-direction: column;
   }
-  
-  /* Sidebar */
+
   .categories {
-    width: 250px;
-    background-color: white;
-    padding: 20px;
-    margin-right: 20px;
-    border-radius: 10px;
+    width: 100%;
+    text-align: center;
   }
-  
-  .categories h3 {
-    margin-bottom: 10px;
-  }
-  
-  .categories ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .categories li {
-    margin-bottom: 10px;
-  }
-  
-  /* Main Section */
-  .popular-items {
-    flex-grow: 1;
-  }
- 
-  
+
   .items-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
-  
-  .item {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .item h3 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    color: #ff6600;
-  }
-  
-  .item p {
-    color: #666;
-  }
-  
-  .buttonp {
-    margin-top: 10px;
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0052cc;
-  }
-  
-  .view-toggle button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .view-toggle button.active {
-    color: #0052cc;
-  }
+}
