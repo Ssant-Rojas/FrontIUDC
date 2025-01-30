@@ -15,12 +15,12 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ✅ Usamos useEffect para redirigir cuando el usuario esté autenticado
+  // ✅ Redirige automáticamente si el usuario ya está autenticado
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/principal"); // Redirige solo cuando el usuario está autenticado
+      navigate("/principal");
     }
-  }, [isAuthenticated, navigate]); 
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,10 +46,32 @@ function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.token); // ✅ Esto actualizará el contexto global y disparará el useEffect
-        toast.success("Sesión iniciada");
+
+        if (!data.token) {
+          throw new Error("El servidor no devolvió un token válido.");
+        }
+
+        login(data.token); // ✅ Guarda el token en el contexto y localStorage
+        toast.success("Sesión iniciada correctamente");
+
+        // ✅ Decodificar el token y redirigir basado en tipoUsuario
+        const decodedToken = JSON.parse(atob(data.token.split(".")[1]));
+
+        switch (decodedToken.tipoUsuario) {
+          case "A":
+            navigate("/admin/dashboard"); // Admin General
+            break;
+          case "a":
+            navigate("/area"); // Admin Área
+            break;
+          case "U":
+          default:
+            navigate("/principal"); // Usuario normal
+            break;
+        }
       } else {
-        throw new Error("Credenciales incorrectas");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Credenciales incorrectas");
       }
     } catch (error) {
       toast.error(error.message);
@@ -71,17 +93,18 @@ function Login() {
     >
       <ToastContainer />
       <div className="Letters">
-        <h1>Bienvenido a administrativa IUDC</h1>
+        <h1>Bienvenido a Administrativa IUDC</h1>
         <p>Ingresa para reportar informes, consultas o ayuda</p>
         <div className="Formulario">
           <form onSubmit={handleSubmit}>
             <div className="input-group">
               <input
-                type="text"
-                placeholder="Usuario"
+                type="email"
+                placeholder="Correo Electrónico"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
               />
             </div>
             <div className="input-group">
@@ -98,7 +121,9 @@ function Login() {
               {loading ? "Cargando..." : "Ingresar"}
             </button>
           </form>
-          <button className="register-button" onClick={handleRegister}>Registrarse</button>
+          <button className="register-button" onClick={handleRegister}>
+            Registrarse
+          </button>
         </div>
       </div>
     </div>

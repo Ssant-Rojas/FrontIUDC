@@ -2,24 +2,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('../../assets/Sede-verde-capas.jpg'); 
-    height: 100vh;
+    height: calc(100vh - 60px); /* Altura total menos la altura del header */
+    background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('../../assets/Sede-verde-capas.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
+    padding: 20px; /* Agrega un pequeño espacio interno */
+    margin-top: 0; /* Asegura que no haya separación arriba */
 }
 
+
+
 .Letters {
-    background-color: rgba(255, 255, 255, 0.85); /* Mayor opacidad */
+    background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente */
     padding: 40px;
     border-radius: 10px;
     text-align: center;
     color: #333; /* Mejor contraste */
     max-width: 400px;
     width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Agrega un efecto sutil de sombra */
 }
+
 
 .Letters h1 {
     font-size: 2.5em;
@@ -45,6 +49,11 @@
     box-sizing: border-box;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
+
+.input-group.password-group {
+    margin-top: 20px;
+}
+
 
 .input-group input:focus {
     border-color: #ff6600;

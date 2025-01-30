@@ -1,129 +1,105 @@
 /* Contenedor principal */
 .main-container {
   font-family: "Arial", sans-serif;
-  background-color: #f4f6f9;
+  background-color: #f7f9fc;
   padding: 20px;
   min-height: 100vh;
-}
-
-/* 🔹 Contenido flexible */
-.content {
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* 🔹 Sección de categorías (barra lateral) */
+/* Categorías */
 .categories {
-  background: white;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 250px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  width: 90%;
+  max-width: 300px;
 }
 
 .categories h3 {
-  font-size: 1.3rem;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
   color: #003366;
-  margin-bottom: 15px;
-}
-
-.categories ul {
-  list-style: none;
-  padding: 0;
-}
-
-.categories li {
-  margin-bottom: 10px;
 }
 
 .categories a {
-  text-decoration: none;
-  color: #0052cc;
-  font-size: 1rem;
-  font-weight: 500;
   display: block;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background 0.3s ease-in-out;
+  margin: 10px 0;
+  padding: 10px;
+  color: white;
+  background-color: #0052cc;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .categories a:hover {
-  background: #ff6600;
-  color: white;
+  background-color: #003366;
 }
 
-/* 🔹 Contenido principal */
-.popular-items {
-  flex: 1;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* 🔹 Header */
-.popular-items .header h2 {
-  font-size: 1.5rem;
-  color: #003366;
-  margin-bottom: 15px;
-}
-
-/* 🔹 Grid de elementos */
-.items-grid {
+/* Elementos populares */
+.popular-section {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
+  width: 90%;
+  margin-top: 30px;
 }
 
-/* 🔹 Ajustes para `Item` */
-.item {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+/* Tarjetas */
+.popular-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.item h3 {
-  font-size: 1.2rem;
+.popular-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.popular-card h4 {
+  font-size: 1.5rem;
   color: #003366;
   margin-bottom: 10px;
 }
 
-.item p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 15px;
+.popular-card p {
+  font-size: 1rem;
+  color: #555555;
+  margin-bottom: 20px;
 }
 
-.item .buttonp {
-  background: #0052cc;
+.popular-card button {
+  background-color: #0052cc;
   color: white;
   border: none;
   padding: 10px 15px;
-  font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s;
 }
 
-.item .buttonp:hover {
-  background: #ff6600;
+.popular-card button:hover {
+  background-color: #003366;
 }
 
-/* 🔹 Responsividad */
-@media screen and (max-width: 768px) {
-  .content {
-    flex-direction: column;
-  }
-
+/* Responsividad */
+@media (max-width: 768px) {
   .categories {
     width: 100%;
-    text-align: center;
   }
 
-  .items-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  .popular-section {
+    grid-template-columns: 1fr;
   }
 }

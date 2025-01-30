@@ -1,3 +1,4 @@
+
 /* Estilo para el contenedor principal */
 .main-container {
   font-family: "Arial", sans-serif;
@@ -5,6 +6,7 @@
   padding: 20px;
   background-color: #dfeef5;
   min-height: 100vh; /* Para asegurar que cubra toda la pantalla */
+  overflow-y: hidden;
 }
 
 /* 🔹 Sección de búsqueda */

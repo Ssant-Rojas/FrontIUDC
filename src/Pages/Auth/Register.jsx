@@ -20,9 +20,14 @@ function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones simples
+    // Validación de Contraseña y Celular
     if (password.length < 8) {
       toast.error('La contraseña debe tener al menos 8 caracteres');
+      return;
+    }
+
+    if (!/^\d{10}$/.test(celular)) {
+      toast.error('El número de celular debe tener exactamente 10 dígitos');
       return;
     }
 
@@ -37,7 +42,7 @@ function RegisterPage() {
       planFK: 1,
     };
 
-    setLoading(true); // Activa el indicador de carga
+    setLoading(true);
 
     try {
       const response = await fetch(server, {
@@ -56,10 +61,9 @@ function RegisterPage() {
         toast.error(`Error en el registro: ${errorData.message || 'Verifica los datos ingresados'}`);
       }
     } catch (error) {
-      console.error('Error:', error);
       toast.error('Hubo un problema con el registro. Intenta de nuevo más tarde.');
     } finally {
-      setLoading(false); // Desactiva el indicador de carga
+      setLoading(false);
     }
   };
 
@@ -87,6 +91,7 @@ function RegisterPage() {
                 value={nombres}
                 onChange={(e) => setNombres(e.target.value)}
                 required
+                autoComplete="given-name"
               />
             </div>
             <div className="input-group">
@@ -96,6 +101,7 @@ function RegisterPage() {
                 value={apellidos}
                 onChange={(e) => setApellidos(e.target.value)}
                 required
+                autoComplete="family-name"
               />
             </div>
             <div className="input-group">
@@ -105,6 +111,7 @@ function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
               />
             </div>
             <div className="input-group">
@@ -114,6 +121,7 @@ function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="new-password"
               />
             </div>
             <div className="input-group">
@@ -123,10 +131,11 @@ function RegisterPage() {
                 value={celular}
                 onChange={(e) => setCelular(e.target.value)}
                 required
+                autoComplete="tel"
               />
             </div>
             <button className="login-button" type="submit" disabled={loading}>
-              {loading ? 'Registrando...' : 'Registrarse'}
+                {loading ? 'Registrando...' : 'Registrarse'}
             </button>
           </form>
           <button className="register-button" onClick={handleLoginRedirect}>

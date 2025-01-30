@@ -1,12 +1,30 @@
+header {
+    width: 100%;
+    background-color: #001f3f; /* Color del header */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    position: sticky; /* Omitir posición fija/absoluta */
+    top: 0;
+    z-index: 10; /* Asegura que esté sobre otros elementos */
+}
+
+
 .Header-TopBar {
     background-color: #1D2256; /* Fondo azul oscuro */
-    height: 60px; 
+    height: 60px; /* Altura fija del header */
     display: flex;
-    align-items: center; 
-    border-bottom: 3px solid orange; 
-    padding: 0 20px; 
-    justify-content: space-between; /* Esto asegura que el logo se quede a la izquierda y el menú a la derecha */
+    align-items: center;
+    justify-content: space-between; /* Logo a la izquierda, menú a la derecha */
+    padding: 0 20px; /* Espaciado interno */
+    border-bottom: 3px solid orange; /* Línea inferior */
+    position: sticky; /* Header visible mientras se desplaza */
+    top: 0;
+    z-index: 1000;
+    margin: 0; /* Elimina márgenes extras */
 }
+
+
 
 .Logo-Space {
     display: flex;

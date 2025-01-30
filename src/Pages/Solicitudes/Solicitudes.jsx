@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import "../../styles/Solicitudes.css"
+import React, { useEffect, useState } from "react";
+import "../../styles/Solicitudes.css";
 
-//const server = 'http://localhost:8080';  
+const server = "http://localhost:8080";
 
 function SolicitudesPage() {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -11,33 +11,24 @@ function SolicitudesPage() {
   useEffect(() => {
     const fetchSolicitudes = async () => {
       try {
-        setTimeout(() => {
-          const mockData = [
-            {
-              id: 1,
-              estado: 'Pendiente',
-              descripcion: 'Solicitud de informe mensual',
-              creado: '2024-11-25T12:00:00Z',
-            },
-            {
-              id: 2,
-              estado: 'Completada',
-              descripcion: 'Consulta sobre el sistema de reportes',
-              creado: '2024-11-20T08:00:00Z',
-            },
-            {
-              id: 3,
-              estado: 'En proceso',
-              descripcion: 'Solicitud de nueva funcionalidad en la app',
-              creado: '2024-11-22T14:30:00Z',
-            },
-          ];
-          
-          setSolicitudes(mockData);
-          setLoading(false);
-        }, 1000); 
+        const token = localStorage.getItem("authToken"); // ✅ Obtener token
+
+        const response = await fetch(`${server}/api/pqrs`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setSolicitudes(data);
       } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };
