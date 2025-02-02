@@ -1,13 +1,15 @@
 import { Navigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth"; // ✅ Corrige la importación
 
-const ProtectedRoute = ({ element, requiredTipoUsuario }) => {
-  const { isAuthenticated, user } = useContext(AuthContext);
+const ProtectedRoute = ({ element, requiredRoles = [] }) => {
+  const { isAuthenticated, user } = useAuth();
 
-  if (!isAuthenticated) return <Navigate to="/" replace />;
-  if (requiredTipoUsuario && user.tipoUsuario !== requiredTipoUsuario) {
-    return <Navigate to="/unauthorized" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+
+  if (requiredRoles.length > 0 && !requiredRoles.includes(user?.role)) {
+    return <Navigate to="/unauthorized" />;
   }
 
   return element;

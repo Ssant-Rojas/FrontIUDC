@@ -1,0 +1,153 @@
+.ticket-details-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.ticket-details-container h1 {
+  font-size: 2rem;
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.ticket-details-card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-details-card h2 {
+  font-size: 1.5rem;
+  color: #34495e;
+  margin-bottom: 10px;
+}
+
+.ticket-details-card p {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-bottom: 5px;
+}
+
+.ticket-details-card .priority {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.priority.alta {
+  background-color: #e74c3c;
+  color: white;
+}
+
+
+.priority.media {
+  background-color: #f39c12;
+  color: white;
+}
+
+.priority.baja {
+  background-color: #27ae60;
+  color: white;
+}
+
+.response-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.response-form label {
+  font-size: 1rem;
+  color: #34495e;
+}
+
+.response-form textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.response-form button {
+  align-self: flex-start;
+  padding: 10px 15px;
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.response-form button:hover {
+  background-color: #1c6692;
+}
+
+
+.conversation-history {
+  margin-top: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-history h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.conversation-history ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.conversation-history li {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-history li p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.conversation-history .timestamp {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  text-align: right;
+}
+
+
+.close-ticket-button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-ticket-button:hover {
+  background-color: #c0392b;
+}

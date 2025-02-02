@@ -18,30 +18,56 @@ function Header() {
       <div className="Header-Menu">
         {isAuthenticated ? (
           <>
-            <Link to="/solicitud" className="Header-Link">Solicitudes</Link>
+            <Link to="/solicitud/crear" className="Header-Link">Crear Solicitud</Link>
+            <Link to="/solicitud" className="Header-Link">Mis Solicitudes</Link>
             <Link to="/admin/tickets" className="Header-Link">Admin Tickets</Link>
-
+          {/* a
             {/* ✅ Si el usuario es admin, mostrar botón Dashboard */}
-            {isAuthenticated && user?.rol === "admin" && (
+            {/* {isAuthenticated && user?.role === "admin" && (
               <Link to="/admin/dashboard" className="Header-Link">
                 Dashboard General
               </Link>
-            )}
+            )} */}
 
             {/* ✅ Si el usuario es área de ventas, mostrar botón Dashboard ventas */}
-            {isAuthenticated && user?.tipoUsuario === "a" && user?.tipoArea === "Ventas" && (
+            {/* {isAuthenticated && user?.tipoUsuario === "a" && user?.tipoArea === "Ventas" && (
               <Link to="/area/ventas/dashboard" className="Header-Link">
                 Dashboard Ventas
               </Link>
-            )}
+            )} */}
 
             {/* ✅ Si el usuario es área de pagos, mostrar botón Dashboard pagos */}
 
-            {isAuthenticated && user?.tipoUsuario === "a" && user?.tipoArea === "Pagos" && (
+            {/* {isAuthenticated && user?.tipoUsuario === "a" && user?.tipoArea === "Pagos" && (
               <Link to="/area/pagos/dashboard" className="Header-Link">
                 Dashboard Pagos
               </Link>
-            )}
+            )} */}
+
+          {isAuthenticated && user?.role === "admin" && (
+          <>
+            <Link to="/admin/dashboard" className="Header-Link">
+              Dashboard General
+            </Link>
+            <Link to="/admin/users" className="Header-Link">
+              Gestión de Usuarios
+            </Link>
+          </>
+        )}
+
+        {/* Opciones para roles específicos */}
+        {isAuthenticated && user?.role === "matriculas" && (
+          <Link to="/matriculas" className="Header-Link">
+            Matriculas
+          </Link>
+        )}
+        {isAuthenticated && user?.role === "pagos" && (
+          <Link to="/reportar" className="Header-Link">
+            Pagos
+          </Link>
+        )}
+
+        {/* Botón de cerrar sesión */}
             
             <button onClick={logout} className="Header-Link-Button">Cerrar Sesión</button>
 

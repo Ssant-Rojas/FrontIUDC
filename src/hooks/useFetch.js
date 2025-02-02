@@ -9,6 +9,7 @@ export const useFetch = (url, options = {}) => {
     const fetchData = async () => {
       try {
         const response = await fetch(url, options);
+        console.log("Fetching data from:", url);
         if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
         const result = await response.json();
         setData(result);
@@ -21,6 +22,7 @@ export const useFetch = (url, options = {}) => {
 
     fetchData();
   }, [url, options]);
+  console.log("Fetching data from:", url);
 
   return { data, error, loading };
 };

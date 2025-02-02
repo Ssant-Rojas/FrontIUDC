@@ -1,73 +1,61 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/Solicitudes.css";
+import { useAuth } from "../../hooks/useAuth"; // Para obtener el usuario autenticado
+import "../../styles/SolicitudesPage.css";
 
-const server = "http://localhost:8080";
-
-function SolicitudesPage() {
+const SolicitudesPage = () => {
   const [solicitudes, setSolicitudes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth(); // Obtener datos del usuario autenticado
 
   useEffect(() => {
     const fetchSolicitudes = async () => {
       try {
-        const token = localStorage.getItem("authToken"); // ✅ Obtener token
-
-        const response = await fetch(`${server}/api/pqrs`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
+        const response = await fetch("http://localhost:8081/solicitudes");
+        if (!response.ok) throw new Error("Error al cargar las solicitudes");
         const data = await response.json();
-        setSolicitudes(data);
+
+        // Filtrar solicitudes por el usuario autenticado
+        const filteredSolicitudes = data.filter(
+          (solicitud) => solicitud.owner === user.email
+        );
+        setSolicitudes(filteredSolicitudes);
+        setLoading(false);
       } catch (err) {
         setError(err.message);
-      } finally {
         setLoading(false);
       }
     };
 
     fetchSolicitudes();
-  }, []);
+  }, [user.email]);
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p className="loading">Cargando solicitudes...</p>;
+  if (error) return <p className="error">Error: {error}</p>;
 
   return (
-    <div className="solicitudes-page">
-      <h1>Solicitudes</h1>
-      {solicitudes.length === 0 ? (
-        <p>No hay solicitudes disponibles</p>
-      ) : (
-        <table className="solicitudes-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Estado</th>
-              <th>Descripción</th>
-              <th>Fecha de Creación</th>
-            </tr>
-          </thead>
-          <tbody>
-            {solicitudes.map((solicitud) => (
-              <tr key={solicitud.id}>
-                <td>{solicitud.id}</td>
-                <td>{solicitud.estado}</td>
-                <td>{solicitud.descripcion}</td>
-                <td>{new Date(solicitud.creado).toLocaleDateString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+    <div className="solicitudes-container">
+      <h1 className="title">📄 Mis Solicitudes</h1>
+      <div className="solicitudes-list">
+        {solicitudes.length > 0 ? (
+          solicitudes.map((solicitud) => (
+            <div key={solicitud.id} className="solicitud-card">
+              <h2 className="solicitud-title">{solicitud.title}</h2>
+              <p className="solicitud-description">{solicitud.description}</p>
+              <p className="solicitud-status">
+                Estado: <strong>{solicitud.status}</strong>
+              </p>
+              <p className="solicitud-date">
+                Fecha: {new Date(solicitud.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="no-solicitudes">No tienes solicitudes creadas.</p>
+        )}
+      </div>
     </div>
   );
-}
+};
 
 export default SolicitudesPage;

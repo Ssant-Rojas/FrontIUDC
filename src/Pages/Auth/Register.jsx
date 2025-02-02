@@ -1,4 +1,4 @@
-import '../../styles/Register.css';
+import '../../styles/Pages/Auth/Register.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import backgroundImage from '../../assets/Sede-verde-capas.jpg';
@@ -20,7 +20,6 @@ function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validación de Contraseña y Celular
     if (password.length < 8) {
       toast.error('La contraseña debe tener al menos 8 caracteres');
       return;
