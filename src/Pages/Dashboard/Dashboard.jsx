@@ -5,12 +5,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext); // Obtenemos el usuario actual del contexto
+  const { user } = useContext(AuthContext);
   const { data: stats, loading, error } = useFetch("http://localhost:8081/stats");
   const { data: ticketStats } = useFetch("http://localhost:8081/ticketStats");
   const { data: categoryStats } = useFetch("http://localhost:8081/categoryStats");
 
-  // Filtrar los tickets según el rol del usuario
   const filteredTicketStats = ticketStats
     ? ticketStats.map((item) => {
         if (user.role === "matriculas") {
@@ -20,7 +19,7 @@ const Dashboard = () => {
         } else if (user.role === "certificados") {
           return { month: item.month, certificados: item.certificados };
         } else {
-          return item; // Si es admin, no filtramos
+          return item; 
         }
       })
     : [];
@@ -30,7 +29,7 @@ const Dashboard = () => {
         if (user.role === "matriculas") return category.category === "Matriculas";
         if (user.role === "pagos") return category.category === "Pagos";
         if (user.role === "certificados") return category.category === "Certificados";
-        return true; // Si es admin, no filtramos
+        return true; 
       })
     : [];
 

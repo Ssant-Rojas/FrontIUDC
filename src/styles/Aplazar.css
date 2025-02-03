@@ -1,4 +1,3 @@
-/* 🔹 Contenedor del formulario */
 .form-container {
   max-width: 600px;
   margin: 40px auto;
@@ -9,7 +8,6 @@
   text-align: center;
 }
 
-/* 🔹 Título */
 .form-container h1 {
   color: #f27405;
   font-size: 1.8rem;
@@ -22,7 +20,6 @@
   margin-bottom: 20px;
 }
 
-/* 🔹 Etiquetas */
 .form-container label {
   display: block;
   font-weight: bold;
@@ -31,7 +28,6 @@
   text-align: left;
 }
 
-/* 🔹 Campos de entrada */
 .form-container input,
 .form-container select,
 .form-container textarea {
@@ -51,7 +47,6 @@
   outline: none;
 }
 
-/* 🔹 Botón de envío */
 .form-container button {
   width: 100%;
   padding: 12px;
@@ -68,7 +63,6 @@
   background-color: #e06304;
 }
 
-/* 🔹 Archivo adjunto */
 .file-input-container {
   margin-bottom: 20px;
 }
@@ -88,7 +82,6 @@
   background-color: #e06304;
 }
 
-/* 🔹 Responsividad */
 @media screen and (max-width: 768px) {
   .form-container {
       width: 90%;

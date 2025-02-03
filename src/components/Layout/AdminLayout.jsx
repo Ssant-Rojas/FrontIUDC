@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../Sidebar/Sidebar"; // Componente de la barra lateral
+import Sidebar from "../Sidebar/Sidebar"; 
 
 const AdminLayout = () => {
   return (
-    <div className="flex h-screen">
-      <Sidebar /> {/* Barra lateral fija */}
-      <div className="flex-1 p-6 bg-gray-100 overflow-auto">
-        <Outlet /> {/* Aquí se renderizarán los dashboards dinámicamente */}
+    <div className="">
+      <Sidebar /> 
+      <div className="">
+        <Outlet /> 
       </div>
     </div>
   );

@@ -29,7 +29,6 @@ import AdminTicketsList from "../components/Tickets/Admin/AdminTicketsList.jsx";
 
 const AppRoutes = () => {
   const { user } = useContext(AuthContext);
-  console.log("Usuario actual:", user); // 🔍 Verificar en consola
   return (
     <Routes>
       {/* Rutas públicas */}
@@ -48,24 +47,13 @@ const AppRoutes = () => {
       
       <Route path="/tickets/:ticketId" element={<ProtectedRoute element={<SolicitudesINFO />} />} />
       <Route path="/solicitud" element={<ProtectedRoute element={<SolicitudesPage />} />} />
-      <Route
-  path="/solicitud/crear"
-  element={<CreateTicket />}
-/>
+      <Route path="/solicitud/crear" element={<CreateTicket />}/>
 
       {/* Admin */}
       <Route element={<ProtectedRoute element={<AdminLayout />} requiredRoles={["admin"]} />}>
       </Route>
 
-      <Route
-        path="/admin/users"
-        element={
-          user?.role === "admin" ? <AdminUsers /> : <Navigate to="/admin/users" />
-        }
-      />
-
-
-
+      <Route path="/admin/users" element={user?.role === "admin" ? <AdminUsers /> : <Navigate to="/admin/users" />}/>
       <Route path="/admin/dashboard" element={<Dashboard />} />
       <Route path="/admin/tickets" element={<AdminTicketsList />} />
       <Route path="/admin/tickets/:id" element={<TicketDetails />} />

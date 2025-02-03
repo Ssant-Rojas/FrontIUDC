@@ -6,7 +6,7 @@ import backgroundImage from "../../assets/Sede-verde-capas.jpg";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const server = "http://localhost:8081"; // ✅ Ahora apunta a `json-server`
+const server = "http://localhost:8081";
 
 function Login() {
   const navigate = useNavigate();
@@ -32,7 +32,6 @@ function Login() {
     setLoading(true);
 
     try {
-      // ✅ Buscar usuario en `db.json`
       const response = await fetch(`${server}/users?email=${email}`);
       const users = await response.json();
 
@@ -55,7 +54,6 @@ function Login() {
       login(user);
       toast.success("Sesión iniciada correctamente");
 
-      // ✅ Redirigir según el rol del usuario
       switch (user.role) {
         case "admin":
           navigate("/admin/dashboard");

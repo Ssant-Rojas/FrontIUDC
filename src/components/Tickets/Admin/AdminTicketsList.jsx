@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth"; // Para obtener el usuario actual
+import { useAuth } from "../../../hooks/useAuth"; 
 import "../../../styles/AdminTicketsList.css";
 
 const AdminTicketsList = () => {
@@ -8,7 +8,7 @@ const AdminTicketsList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { user } = useAuth(); // Obtener el usuario actual para filtrar tickets
+  const { user } = useAuth(); 
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -40,7 +40,6 @@ const AdminTicketsList = () => {
     navigate(`/admin/tickets/${id}`);
   };
 
-  // Filtrar tickets según el rol del usuario
   const filteredTickets =
     user?.role === "admin"
       ? tickets

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://tu-api.com/api/admin";
+const API_URL = "asdsdasdadmin";
 
 export const getDashboardData = async () => {
   try {

@@ -1,7 +1,7 @@
 import "./HeaderStyles.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext"; // ✅ Verifica la ruta
+import { AuthContext } from "../../context/AuthContext"; 
 
 function Header() {
   const { isAuthenticated, user, logout } = useContext(AuthContext);

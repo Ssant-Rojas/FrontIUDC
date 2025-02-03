@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../hooks/useAuth"; // Para obtener el usuario autenticado
+import { useAuth } from "../../hooks/useAuth"; 
 import "../../styles/SolicitudesPage.css";
 
 const SolicitudesPage = () => {
   const [solicitudes, setSolicitudes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth(); // Obtener datos del usuario autenticado
+  const { user } = useAuth(); 
 
   useEffect(() => {
     const fetchSolicitudes = async () => {
@@ -15,7 +15,6 @@ const SolicitudesPage = () => {
         if (!response.ok) throw new Error("Error al cargar las solicitudes");
         const data = await response.json();
 
-        // Filtrar solicitudes por el usuario autenticado
         const filteredSolicitudes = data.filter(
           (solicitud) => solicitud.owner === user.email
         );

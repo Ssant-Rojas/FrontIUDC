@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../../styles/CreateTicket.css"; // Asegúrate de tener este archivo
+import "../../styles/CreateTicket.css"; 
 import { toast } from "react-toastify";
-import { useAuth } from "../../hooks/useAuth"; // Obtener información del usuario autenticado
+import { useAuth } from "../../hooks/useAuth"; 
 
 const CreateSolicitudes = ({ onSolicitudesCreated }) => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,7 @@ const CreateSolicitudes = ({ onSolicitudesCreated }) => {
     priority: "Media",
   });
 
-  const { user } = useAuth(); // Obtener el usuario autenticado
+  const { user } = useAuth(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +29,7 @@ const CreateSolicitudes = ({ onSolicitudesCreated }) => {
       ...formData,
       status: "Pendiente",
       createdAt: new Date().toISOString(),
-      owner: user.email, // Asociar solicitud con el usuario autenticado
+      owner: user.email,
     };
 
     try {
@@ -49,7 +49,7 @@ const CreateSolicitudes = ({ onSolicitudesCreated }) => {
         }
 
         toast.success("Solicitud creada exitosamente.");
-        setFormData({ category: "", description: "", priority: "Media" }); // Resetear el formulario
+        setFormData({ category: "", description: "", priority: "Media" });
       } else {
         toast.error("Error al crear la solicitud.");
       }

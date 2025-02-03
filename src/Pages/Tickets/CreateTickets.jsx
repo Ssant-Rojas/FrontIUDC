@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../../styles/CreateTicket.css"; // Asegúrate de definir estilos según tu diseño
-import { useAuth } from "../../hooks/useAuth"; // Para obtener información del usuario autenticado
+import "../../styles/CreateTicket.css";
+import { useAuth } from "../../hooks/useAuth";
 
 const CreateTicket = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ const CreateTicket = () => {
     priority: "Media",
   });
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth(); // Obtener datos del usuario autenticado
+  const { user } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +28,7 @@ const CreateTicket = () => {
       ...formData,
       status: "Pendiente",
       createdAt: new Date().toISOString(),
-      owner: user.email, // Asociar el ticket al usuario autenticado
+      owner: user.email,
     };
 
     setLoading(true);
@@ -44,7 +44,7 @@ const CreateTicket = () => {
 
       if (response.ok) {
         alert("Ticket creado exitosamente.");
-        setFormData({ category: "", description: "", priority: "Media" }); // Reiniciar el formulario
+        setFormData({ category: "", description: "", priority: "Media" }); 
       } else {
         alert("Error al crear el ticket.");
       }

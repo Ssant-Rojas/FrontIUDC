@@ -1,27 +1,27 @@
 header {
     width: 100%;
-    background-color: #001f3f; /* Color del header */
+    background-color: #001f3f; 
     color: white;
     padding: 15px 20px;
     text-align: center;
-    position: sticky; /* Omitir posición fija/absoluta */
+    position: sticky; 
     top: 0;
-    z-index: 10; /* Asegura que esté sobre otros elementos */
+    z-index: 10; 
 }
 
 
 .Header-TopBar {
-    background-color: #1D2256; /* Fondo azul oscuro */
-    height: 60px; /* Altura fija del header */
+    background-color: #1D2256; 
+    height: 60px; 
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Logo a la izquierda, menú a la derecha */
-    padding: 0 20px; /* Espaciado interno */
-    border-bottom: 3px solid orange; /* Línea inferior */
-    position: sticky; /* Header visible mientras se desplaza */
+    justify-content: space-between; 
+    padding: 0 20px; 
+    border-bottom: 3px solid orange; 
+    position: sticky; 
     top: 0;
     z-index: 1000;
-    margin: 0; /* Elimina márgenes extras */
+    margin: 0; 
 }
 
 
@@ -40,18 +40,18 @@ header {
 .Header-Menu {
     display: flex; 
     align-items: center;
-    justify-content: flex-end; /* Esto alinea los links a la derecha */
+    justify-content: flex-end; 
 }
 
 .Header-Link {
-    color: white; /* Color blanco para los enlaces */
-    margin-left: 20px; /* Espacio entre los enlaces */
-    text-decoration: none; /* Elimina el subrayado */
-    font-weight: 500; /* Peso de la fuente para que se vea más prominente */
+    color: white; 
+    margin-left: 20px; 
+    text-decoration: none; 
+    font-weight: 500; 
 }
 
 .Header-Link:hover {
-    color: orange; /* Color cuando el mouse pasa por encima */
+    color: orange; 
 }
 
 .Header-Link-Button {
@@ -64,7 +64,7 @@ header {
     font-weight: 500;
     margin-left: 20px;
     text-decoration: none;
-    transition: background-color 0.2s ease-in-out; /* Agregamos una transición */
+    transition: background-color 0.2s ease-in-out; 
 }
 
 .Header-Link-Button:hover {

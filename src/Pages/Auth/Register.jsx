@@ -54,7 +54,7 @@ function RegisterPage() {
 
       if (response.ok) {
         toast.success('Registro exitoso. Inicia sesión para continuar');
-        navigate('/'); // Redirige al login
+        navigate('/'); 
       } else {
         const errorData = await response.json();
         toast.error(`Error en el registro: ${errorData.message || 'Verifica los datos ingresados'}`);
