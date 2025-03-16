@@ -46,6 +46,7 @@ function Login() {
       console.log("Usuario autenticado:", user);
 
       // ✅ Validar contraseña (simulación, sin hashing)
+
       if (user.password !== password) {
         throw new Error("Contraseña incorrecta");
       }

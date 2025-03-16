@@ -38,12 +38,14 @@ const AppRoutes = () => {
       {/* Rutas protegidas */}
       <Route path="/principal" element={<ProtectedRoute element={<PrincipalPage />} />} />
       <Route path="/pedirAyuda" element={<ProtectedRoute element={<PedirAyuda />} />} />
-      <Route path="/citas" element={<ProtectedRoute element={<Citas />} />} />
+      
+      
+      {/* <Route path="/citas" element={<ProtectedRoute element={<Citas />} />} />
       <Route path="/matriculas" element={<ProtectedRoute element={<Matriculas />} />} />
       <Route path="/aplazar" element={<ProtectedRoute element={<Aplazar />} />} />
       <Route path="/reportar" element={<ProtectedRoute element={<Reportes />} />} />
       <Route path="/agendamiento" element={<ProtectedRoute element={<Agendamientos />} />} />
-      <Route path="/pqr" element={<ProtectedRoute element={<Problemasquejasreclamos />} />} />
+      <Route path="/pqr" element={<ProtectedRoute element={<Problemasquejasreclamos />} />} /> */}
       
       <Route path="/tickets/:ticketId" element={<ProtectedRoute element={<SolicitudesINFO />} />} />
       <Route path="/solicitud" element={<ProtectedRoute element={<SolicitudesPage />} />} />

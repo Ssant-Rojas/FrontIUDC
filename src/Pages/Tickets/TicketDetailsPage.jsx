@@ -11,7 +11,7 @@ const TicketDetailsPage = () => {
   useEffect(() => {
     const fetchTicket = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/tickets/${ticketId}`);
+        const response = await axios.get(`http://localhost:8081/tickets/${ticketId}`);
         setTicket(response.data);
       } catch (error) {
         console.error("Error al obtener el ticket:", error);
@@ -24,7 +24,7 @@ const TicketDetailsPage = () => {
 
   const handleStatusChange = async (newStatus) => {
     try {
-      await axios.patch(`http://localhost:8080/tickets/${ticketId}`, { status: newStatus });
+      await axios.patch(`http://localhost:8081/tickets/${ticketId}`, { status: newStatus });
       setTicket({ ...ticket, status: newStatus });
       toast.success(`Estado cambiado a ${newStatus}`);
     } catch (error) {
