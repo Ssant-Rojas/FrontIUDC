@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import  {useEffect, useState} from "react";
 import "../../styles/CreateTicket.css";
-import { useAuth } from "../../hooks/useAuth";
+import {useAuth} from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const CreateTicket = () => {
   const [formData, setFormData] = useState({
@@ -15,12 +16,12 @@ const CreateTicket = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:8081/roles");
+        const response = await fetch("http://localhost:8080/api/categorias");
         if (!response.ok) throw new Error("Error al cargar las categorías");
         const data = await response.json();
         setCategories(data);
       } catch (error) {
-        console.error("Error al obtener las categorías:", error);
+        toast.error("Error al obtener las categorías:", error);
       }
     };
 
@@ -36,7 +37,7 @@ const CreateTicket = () => {
     e.preventDefault();
 
     if (!formData.category || !formData.description) {
-      alert("Por favor, completa todos los campos.");
+      toast.error("Por favor, completa todos los campos.");
       return;
     }
 
@@ -56,9 +57,6 @@ const CreateTicket = () => {
       expiration: new Date(new Date().setDate(new Date().getDate() + (priority === "Alta" ? 1 : priority === "Media" ? 3 : 7))).toISOString(),
       owner: user.email
     };
-
-    console.log("📤 Ticket enviado al backend:", newTicket); // 🔍 Verifica en la consola
-
     setLoading(true);
 
     try {
@@ -69,14 +67,13 @@ const CreateTicket = () => {
       });
 
       if (response.ok) {
-        alert("Ticket creado exitosamente.");
+        toast.success("Ticket creado exitosamente.");
         setFormData({ category: "", description: "" });
       } else {
-        alert("Error al crear el ticket.");
+        toast.error("Error al crear el ticket.");
       }
     } catch (error) {
-      console.error("Error al conectar con el servidor:", error);
-      alert("Error al conectar con el servidor.");
+      toast.error("Error al conectar con el servidor.", error);
     } finally {
       setLoading(false);
     }
@@ -94,8 +91,8 @@ const CreateTicket = () => {
           required
         >
           <option value="">Seleccionar...</option>
-          {categories.map((role) => (
-            <option key={role.id} value={role.name}>{role.name}</option>
+          {categories.map((categoria) => (
+            <option key={categoria.id} value={categoria.name}>{categoria.name}</option>
           ))}
         </select>
       </div>

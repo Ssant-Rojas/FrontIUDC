@@ -27,7 +27,7 @@
 .create-ticket-section-group select,
 .create-ticket-section-group textarea {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }

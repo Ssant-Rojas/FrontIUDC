@@ -5,8 +5,8 @@ import backgroundImage from '../../assets/Sede-verde-capas.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-//const server = 'http://localhost:8080/api/personas';
-const server = 'http://localhost:8081/users'
+const server = 'http://localhost:8080/api/user';
+//const server = 'http://localhost:8081/users'
 function RegisterPage() {
   const navigate = useNavigate();
   const [nombres, setNombres] = useState('');
@@ -59,6 +59,7 @@ function RegisterPage() {
         const errorData = await response.json();
         toast.error(`Error en el registro: ${errorData.message || 'Verifica los datos ingresados'}`);
       }
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       toast.error('Hubo un problema con el registro. Intenta de nuevo más tarde.');
     } finally {

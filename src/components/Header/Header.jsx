@@ -43,7 +43,7 @@ function Header() {
               </Link>
             )} */}
 
-          {isAuthenticated && user?.role === "admin" && (
+          {isAuthenticated && user?.rol === "admin" && (
           <>
             <Link to="/admin/tickets" className="Header-Link">
               Admin Tickets
@@ -58,7 +58,7 @@ function Header() {
         )}
 
         {/* Opciones para roles específicos */}
-        {isAuthenticated && user?.role === "Matrículas" && (
+        {isAuthenticated && user?.rol === "Matrículas" && (
           <div>
             <Link to="/admin/tickets" className="Header-Link">
             Admin Tickets
@@ -66,7 +66,7 @@ function Header() {
        
           </div>
         )}
-        {isAuthenticated && user?.role === "pagos" && (
+        {isAuthenticated && user?.rol === "pagos" && (
           <div>
           <Link to="/admin/tickets" className="Header-Link">
           Admin Tickets

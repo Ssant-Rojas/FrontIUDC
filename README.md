@@ -75,7 +75,7 @@ curl --location 'http://localhost:8080/api/documentos/upload' \
 Para autenticar a un usuario:
 
 ```bash
-curl --location 'http://localhost:8080/api/auth/login' \
+  curl --location 'http://localhost:8080/api/auth/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "juan.perez@example.com",

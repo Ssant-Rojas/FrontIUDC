@@ -55,7 +55,7 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute element={<AdminLayout />} requiredRoles={["admin"]} />}>
       </Route>
 
-      <Route path="/admin/users" element={user?.role === "admin" ? <AdminUsers /> : <Navigate to="/admin/users" />}/>
+      <Route path="/admin/users" element={user?.rol === "admin" ? <AdminUsers /> : <Navigate to="/admin/users" />}/>
       <Route path="/admin/dashboard" element={<Dashboard />} />
       <Route path="/admin/tickets" element={<AdminTicketsList />} />
       <Route path="/admin/tickets/:id" element={<TicketDetails />} />
