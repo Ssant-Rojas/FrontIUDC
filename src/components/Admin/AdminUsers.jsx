@@ -1,6 +1,7 @@
 import  { useEffect, useState } from "react";
 import '../../styles/AdminUsers.css';
 import { toast } from "react-toastify";
+import apiService from "../../services/api.js";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -8,14 +9,29 @@ const AdminUsers = () => {
   const [newUser, setNewUser] = useState({ name: "", email: "", password: "", role: "" });
   const [newRole, setNewRole] = useState({ name: "", priority: "Media" });
 
-  useEffect(() => {
-    fetch("http://localhost:8081/users")
-      .then((res) => res.json())
-      .then(setUsers);
+    useEffect(() => {
+        apiService.get('/user', 'tickets')
+            .then(data => {
+                // Transformar los datos al formato esperado por el componente
+                const formattedUsers = data.map(user => ({
+                    id: user.idPersona,
+                    name: `${user.nombres} ${user.apellidos}`,
+                    email: user.email,
+                    role: user.tipoUsuario
+                }));
+                setUsers(formattedUsers);
+            })
+            .catch(error => {
+                console.error('Error al cargar usuarios:', error);
+                toast.error('Error al cargar usuarios');
+            });
 
-    fetch("http://localhost:8081/roles")
-      .then((res) => res.json())
-      .then(setRoles);
+    apiService.get('/roles', 'tickets')
+        .then(setRoles)
+        .catch(error => {
+          console.error('Error al cargar roles:', error);
+          toast.error('Error al cargar roles');
+        });
   }, []);
 
   const handleRoleChange = (userId, newRole) => {
@@ -118,12 +134,12 @@ const AdminUsers = () => {
               <td>{user.email}</td>
               <td>
                 <select
-                  value={user.role}
+                  value={user.rol}
                   onChange={(e) => handleRoleChange(user.id, e.target.value)}
                 >
-                  {roles.map((role) => (
-                    <option key={role.id} value={role.name}>
-                      {role.name}
+                  {roles.map((rol) => (
+                    <option key={rol.id} value={rol.name}>
+                      {rol.name}
                     </option>
                   ))}
                 </select>
