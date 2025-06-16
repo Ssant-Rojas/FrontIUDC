@@ -26,12 +26,15 @@ const AdminUsers = () => {
                 toast.error('Error al cargar usuarios');
             });
 
-    apiService.get('/roles', 'tickets')
-        .then(setRoles)
-        .catch(error => {
-          console.error('Error al cargar roles:', error);
-          toast.error('Error al cargar roles');
-        });
+        apiService.get('/tipos-usuario', 'tickets')
+            .then(data => {
+                console.log('Roles cargados:', data);
+                setRoles(data);
+            })
+            .catch(error => {
+                console.error('Error al cargar roles:', error);
+                toast.error('Error al cargar roles');
+            });
   }, []);
 
   const handleRoleChange = (userId, newRole) => {
@@ -66,42 +69,30 @@ const AdminUsers = () => {
     toast.success("Usuario creado exitosamente.");
   };
 
-  const handleCreateRole = async (e) => {
-    e.preventDefault();
+    const handleCreateRole = async (e) => {
+        e.preventDefault();
 
-    if (!newRole.name.trim()) {
-      toast.error("El nombre del rol no puede estar vacío.");
-      return;
-    }
+        if (!newRole.nombre.trim()) {
+            toast.error("El nombre del rol no puede estar vacío.");
+            return;
+        }
 
-    try {
-      const response = await fetch("http://localhost:8081/roles", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newRole),
-      });
-
-      if (response.ok) {
-        const createdRole = await response.json();
-        setRoles([...roles, createdRole]);
-        toast.success("Rol creado exitosamente.");
-        setNewRole({ name: "", priority: "Media" });
-      } else {
-        toast.error("Error al crear el rol.");
-      }
-    } catch (error) {
-      console.error("❌ Error al conectar con el servidor:", error);
-      toast.error("Error al conectar con el servidor.");
-    }
-  };
+        try {
+            const createdRole = await apiService.post('/tipos-usuario', newRole, 'tickets');
+            setRoles([...roles, createdRole]);
+            toast.success("Rol creado exitosamente.");
+            setNewRole({ nombre: "", descripcion: "" });
+        } catch (error) {
+            console.error("❌ Error al crear rol:", error);
+            toast.error("Error al crear el rol.");
+        }
+    };
 
   const handleDeleteRole = async (roleId) => {
     if (!window.confirm("¿Seguro que deseas eliminar este rol?")) return;
 
-    try {
-      const response = await fetch(`http://localhost:8081/roles/${roleId}`, {
-        method: "DELETE",
-      });
+      try {
+          await apiService.delete(`/tipos-usuario/${roleId}`, 'tickets');
 
       if (response.ok) {
         setRoles(roles.filter((role) => role.id !== roleId));
@@ -133,16 +124,16 @@ const AdminUsers = () => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>
-                <select
-                  value={user.rol}
-                  onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                >
-                  {roles.map((rol) => (
-                    <option key={rol.id} value={rol.name}>
-                      {rol.name}
-                    </option>
-                  ))}
-                </select>
+                  <select
+                      value={user.role}
+                      onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                  >
+                      {roles.map((rol) => (
+                          <option key={rol.id} value={rol.nombre}>
+                              {rol.nombre}
+                          </option>
+                      ))}
+                  </select>
               </td>
               <td>
                 <button onClick={() => handleRoleChange(user.id, "admin")}>
@@ -155,6 +146,7 @@ const AdminUsers = () => {
       </table>
 
       <h2>Crear Nuevo Usuario</h2>
+
       <input
         type="text"
         placeholder="Nombre"
@@ -179,45 +171,46 @@ const AdminUsers = () => {
         onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
       >
         <option value="">Seleccionar Rol</option>
-        {roles.map((role) => (
-          <option key={role.id} value={role.name}>
-            {role.name}
-          </option>
-        ))}
+          {roles.map((role) => (
+              <option key={role.id} value={role.nombre}>
+                  {role.nombre}
+              </option>
+          ))}
       </select>
       <button onClick={handleCreateUser}>Crear Usuario</button>
 
       {/* 🔹 Gestión de Roles */}
-      <h1>Gestión de Roles</h1>
-      <form className="role-form" onSubmit={handleCreateRole}>
-        <h2>Agregar Nuevo Rol</h2>
-        <input
-          type="text"
-          placeholder="Nombre del rol"
-          value={newRole.name}
-          onChange={(e) => setNewRole({ ...newRole, name: e.target.value })}
-          required
-        />
-        <select
-          value={newRole.priority}
-          onChange={(e) => setNewRole({ ...newRole, priority: e.target.value })}
-        >
-          <option value="Alta">Alta</option>
-          <option value="Media">Media</option>
-          <option value="Baja">Baja</option>
-        </select>
-        <button type="submit">Crear Rol</button>
-      </form>
+
+        <h1>Gestión de Roles</h1>
+        <form className="role-form" onSubmit={handleCreateRole}>
+            <h2>Agregar Nuevo Rol</h2>
+            <input
+                type="text"
+                placeholder="Nombre del rol"
+                value={newRole.nombre}
+                onChange={(e) => setNewRole({ ...newRole, nombre: e.target.value })}
+                required
+            />
+            <input
+                type="text"
+                placeholder="Descripción del rol"
+                value={newRole.descripcion}
+                onChange={(e) => setNewRole({ ...newRole, descripcion: e.target.value })}
+            />
+            <button type="submit">Crear Rol</button>
+        </form>
 
       {/* 🔹 Lista de roles */}
+
+
       <div className="roles-list">
         <h2>Lista de Roles</h2>
         {roles.length > 0 ? (
           roles.map((role) => (
-            <div key={role.id} className="role-card">
-              <p><strong>Nombre:</strong> {role.name}</p>
-              <p><strong>Prioridad:</strong> {role.priority}</p>
-              <button className="delete-button" onClick={() => handleDeleteRole(role.id)}>
+              <div key={role.id} className="role-card">
+                  <p><strong>Nombre:</strong> {role.nombre}</p>
+                  <p><strong>Descripción:</strong> {role.descripcion}</p>
+                  <button className="delete-button" onClick={() => handleDeleteRole(role.id)}>
                 Eliminar
               </button>
             </div>
