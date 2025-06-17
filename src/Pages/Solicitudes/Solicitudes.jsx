@@ -15,10 +15,13 @@ const SolicitudesPage = () => {
     const fetchTickets = async () => {
       try {
         const data = await apiService.get('/tickets');
-
-        const filteredTickets = data.filter((ticket) => ticket.owner === user.email);
-        setTickets(filteredTickets);
+        // Usar todos los tickets ya que no hay campo owner
+        setTickets(data);
         setLoading(false);
+
+        // const filteredTickets = data.filter((ticket) => ticket.owner === user.email);
+        // setTickets(filteredTickets);
+        // setLoading(false);
       } catch (err) {
         setError(err.message);
         setLoading(false);

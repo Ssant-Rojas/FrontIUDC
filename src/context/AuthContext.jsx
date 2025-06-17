@@ -12,14 +12,12 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      console.log("Usuario cargado desde localStorage:", parsedUser); // 🔍 Depuración
       setUser(parsedUser);
       setIsAuthenticated(true);
     }
   }, []);
 
   const login = (userData) => {
-    console.log("Guardando usuario en contexto:", userData); // 🔍 Depuración
     setUser(userData);
     setIsAuthenticated(true);
     localStorage.setItem("user", JSON.stringify(userData));

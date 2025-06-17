@@ -9,8 +9,10 @@ const CreateTicket = ({onTicketCreated}) => {
         categoryId: "",
         description: "",
         priority: "",
+        documentos: []
     });
     const [categories, setCategories] = useState([]);
+    const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -51,6 +53,50 @@ const CreateTicket = ({onTicketCreated}) => {
         }
     };
 
+    const handleFileChange = async (e) => {
+        const files = Array.from(e.target.files);
+        setUploading(true);
+
+        try {
+            const documentosPromises = files.map(file => {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        // Obtener el base64 sin el prefijo (data:application/pdf;base64,)
+                        const base64String = reader.result.split(',')[1];
+                        resolve({
+                            nombre: file.name,
+                            tipo: file.type,
+                            contenidoBase64: base64String
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            const documentos = await Promise.all(documentosPromises);
+
+            setFormData(prev => ({
+                ...prev,
+                documentos: [...prev.documentos, ...documentos]
+            }));
+        } catch (error) {
+            toast.error("Error al cargar los archivos");
+            console.error("Error al cargar archivos:", error);
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const removeDocument = (index) => {
+        setFormData(prev => ({
+            ...prev,
+            documentos: prev.documentos.filter((_, i) => i !== index)
+        }));
+    };
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -66,6 +112,7 @@ const CreateTicket = ({onTicketCreated}) => {
             status: "Pendiente",
             createdAt: new Date().toISOString(),
             expiration: calculateExpiration(formData.priority),
+            documentos: formData.documentos
         };
 
         try {
@@ -77,7 +124,7 @@ const CreateTicket = ({onTicketCreated}) => {
             }
 
             toast.success("Solicitud creada exitosamente.");
-            setFormData({categoryId: "", description: "", priority: ""});
+            setFormData({categoryId: "", description: "", priority: "", documentos: []});
         } catch (error) {
             toast.error(error.message || "Error al crear la solicitud.");
         }
@@ -108,6 +155,37 @@ const CreateTicket = ({onTicketCreated}) => {
                     onChange={handleChange}
                     required
                 />
+            </div>
+            <div className="create-ticket-section-group">
+                <label>Documentos</label>
+                <input
+                    type="file"
+                    multiple
+                    onChange={handleFileChange}
+                    disabled={uploading}
+                    className="create-ticket-section-file-input"
+                />
+                {uploading && <p className="upload-status">Cargando archivos...</p>}
+
+                {formData.documentos.length > 0 && (
+                    <div className="document-list">
+                        <h4>Documentos adjuntos:</h4>
+                        <ul>
+                            {formData.documentos.map((doc, index) => (
+                                <li key={index} className="document-item">
+                                    <span>{doc.nombre}</span>
+                                    <button
+                                        type="button"
+                                        onClick={() => removeDocument(index)}
+                                        className="remove-document-btn"
+                                    >
+                                        Eliminar
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
             <button type="submit" className="create-ticket-section-button">
                 Crear Solicitud
