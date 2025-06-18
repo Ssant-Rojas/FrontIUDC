@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import "../../styles/SolicitudesPage.css";
+import apiService from "../../services/api.js";
 
 const SolicitudesPage = () => {
   const [tickets, setTickets] = useState([]);
@@ -13,18 +14,19 @@ const SolicitudesPage = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await fetch("http://localhost:8081/tickets");  // 🔴 CAMBIADO A `/tickets`
-        if (!response.ok) throw new Error("Error al cargar los tickets");
-        const data = await response.json();
-    
-        const filteredTickets = data.filter((ticket) => ticket.owner === user.email);
-        setTickets(filteredTickets);
+        const data = await apiService.get('/tickets');
+        // Usar todos los tickets ya que no hay campo owner
+        setTickets(data);
         setLoading(false);
+
+        // const filteredTickets = data.filter((ticket) => ticket.owner === user.email);
+        // setTickets(filteredTickets);
+        // setLoading(false);
       } catch (err) {
         setError(err.message);
         setLoading(false);
       }
-    };    
+    };
 
     fetchTickets();
   }, [user.email]);

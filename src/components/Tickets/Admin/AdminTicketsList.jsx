@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth"; 
 import "../../../styles/AdminTicketsList.css";
+import apiService from "../../../services/api.js";
 
 const AdminTicketsList = () => {
   const [tickets, setTickets] = useState([]);
@@ -12,31 +13,38 @@ const AdminTicketsList = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [expirationFilter, setExpirationFilter] = useState("");
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth(); 
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        console.log("📡 Fetching tickets desde:", "http://localhost:8081/tickets");
-        const response = await fetch("http://localhost:8081/tickets");
-        if (!response.ok) throw new Error("⚠️ Error al cargar los tickets");
+        setLoading(true);
+        const data = await apiService.get('/tickets');
+        let filteredData = data;
 
-        const data = await response.json();
-        console.log("✅ Tickets cargados:", data);
+        if (user.rol !== "admin" && user.rol !== "ADMIN") {
+          filteredData = data.filter(ticket => {
+            if (!ticket.category || !ticket.category.assignedArea) {
+              console.warn("⚠️ Ticket con estructura incorrecta:", ticket);
+              return false;
+            }
 
-        let filteredData;
-        if (user.role === "admin") {
-          filteredData = data; // Admin ve todos los tickets
-        } else {
-          filteredData = data.filter(ticket => ticket.assignedArea === user.role || ticket.category === user.role);
+            const areaMatch = ticket.category.assignedArea.nombre === user.rol;
+            const categoryMatch = ticket.category.name === user.rol;
+
+            console.log(`🔍 Ticket ${ticket.id} - Area: ${ticket.category.assignedArea.nombre}, Categoría: ${ticket.category.name}, Coincide: ${areaMatch || categoryMatch}`);
+
+            return areaMatch || categoryMatch;
+          });
         }
 
+        console.log("🔄 Tickets filtrados para el usuario:", filteredData);
         setTickets(filteredData);
         setFilteredTickets(filteredData);
-        setLoading(false);
       } catch (err) {
         console.error("❌ Error al obtener los tickets:", err);
-        setError(err.message);
+        setError("Error al cargar tickets: " + (err.message || "Error desconocido"));
+      } finally {
         setLoading(false);
       }
     };
@@ -79,7 +87,6 @@ const AdminTicketsList = () => {
   }, [dateFilter, statusFilter, expirationFilter, tickets]);
 
   const handleViewDetails = (id) => {
-    console.log(`🔍 Navegando al ticket ${id}`);
     navigate(`/admin/tickets/${id}`);
   };
 
@@ -90,10 +97,10 @@ const AdminTicketsList = () => {
 
   if (loading) return <p className="loading">Cargando tickets...</p>;
   if (error) return <p className="error">Error: {error}</p>;
-
   return (
-    <div className="tickets-container">
-      <h1 className="title">🎫 Listado de Tickets</h1>
+      <div className="tickets-container">
+        <h1 className="title">🎫 Listado de Tickets ({filteredTickets.length})</h1>
+        {tickets.length === 0 && !loading && !error && <p className="no-tickets">No se encontraron tickets en el sistema.</p>}
 
       <div className="filters">
         <label>Filtrar por fecha:</label>
@@ -107,9 +114,9 @@ const AdminTicketsList = () => {
 
         <label>Filtrar por estado:</label>
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-          <option value="">Todos</option>
           <option value="Pendiente">Pendiente</option>
           <option value="En Proceso">En Proceso</option>
+          <option value="Resuelto">Resuelto</option>
           <option value="Cerrado">Cerrado</option>
         </select>
 
@@ -121,10 +128,11 @@ const AdminTicketsList = () => {
       </div>
 
       <div className="tickets-list">
+
         {filteredTickets.length > 0 ? (
           filteredTickets.map((ticket) => {
             const isExpired = ticket.expiration && new Date(ticket.expiration) < new Date();
-            const isClosed = ticket.status?.toLowerCase() === "cerrado";
+            const isClosed = ticket.status?.toLowerCase() === "cerrado" || ticket.status?.toLowerCase() === "resuelto";
 
             return (
               <div 
@@ -132,21 +140,30 @@ const AdminTicketsList = () => {
                 className={`ticket-card ${isExpired ? "expired" : ""} ${isClosed ? "closed" : ""}`} 
                 onClick={() => handleViewDetails(ticket.id)}
               >
+
                 <div className="ticket-header">
                   <h2 className="ticket-category">
-                    {ticket.category} - {ticket.id}
+                    {ticket.category.name} - {ticket.id}
                   </h2>
                   <span className={`priority ${ticket.priority?.toLowerCase() || "media"}`}>
                     {ticket.priority}
                   </span>
                 </div>
                 <p className="ticket-description">{ticket.description}</p>
+                {ticket.messages && ticket.messages.length > 0 && (
+                    <div className="ticket-messages">
+                      <p className="messages-count">Mensajes: {ticket.messages.length}</p>
+                    </div>
+                )}
                 <div className="ticket-footer">
                   <span className={`status ${ticket.status?.toLowerCase() || "desconocido"}`}>
                     {ticket.status}
                   </span>
                   <span className="ticket-date">
-                    Creado: {new Date(ticket.createdAt).toLocaleDateString()}
+                    Creado: {new Date(ticket.createdAt).toLocaleDateString('es-ES')}
+                  </span>
+                  <span className="ticket-area">
+                    Área: {ticket.category.assignedArea.nombre}
                   </span>
                   {ticket.expiration && (
                     <span className={`ticket-expiration ${isExpired ? "expired-text" : ""}`}>

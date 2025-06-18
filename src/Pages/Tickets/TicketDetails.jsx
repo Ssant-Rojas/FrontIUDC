@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "../../styles/TicketDetails.css";
+import apiService from "../../services/api.js";
 
 const TicketDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [ticket, setTicket] = useState(null);
-  const [roles, setRoles] = useState([]); // ✅ Lista de roles para escalación
+  const [roles, setRoles] = useState([]);
   const [response, setResponse] = useState("");
   const [internalMessage, setInternalMessage] = useState("");
   const [showInternal, setShowInternal] = useState(false);
@@ -19,9 +20,7 @@ const TicketDetails = () => {
   useEffect(() => {
     const fetchTicket = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/tickets/${id}`);
-        if (!response.ok) throw new Error("Error al cargar el ticket");
-        const data = await response.json();
+        const data = await apiService.get(`/tickets/${id}`);
         setTicket(data);
         setLoading(false);
       } catch (err) {
@@ -33,12 +32,10 @@ const TicketDetails = () => {
 
     const fetchRoles = async () => {
       try {
-        const response = await fetch("http://localhost:8081/roles");
-        if (!response.ok) throw new Error("Error al cargar los roles");
-        const data = await response.json();
+        const data = await apiService.get('/areas');
         setRoles(data);
       } catch (err) {
-        console.error("Error al obtener los roles:", err.message);
+        console.error("Error cargando áreas:", err.message);
       }
     };
 
@@ -59,27 +56,30 @@ const TicketDetails = () => {
       return;
     }
 
-    const escalationComment = {
+    const messageDTO = {
       author: user.email,
-      text: `El usuario ${user.name} escaló el ticket de ${ticket.assignedArea || "Sin Asignar"} a ${selectedArea}.`,
-      timestamp: new Date().toISOString(),
-      internal: true,
-    };
-
-    const updatedTicket = {
-      ...ticket,
-      assignedArea: selectedArea,
-      messages: ticket.messages ? [...ticket.messages, escalationComment] : [escalationComment],
+      text: `El usuario ${user.name} escaló el ticket de ${ticket.category?.assignedArea?.nombre || "Sin Asignar"} a ${selectedArea}.`,
+      internal: true
     };
 
     try {
-      const response = await fetch(`http://localhost:8081/tickets/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedTicket),
+      await apiService.post(`/tickets/${id}/escalate`, {
+        message: messageDTO,
+        targetArea: selectedArea
       });
 
-      if (!response.ok) throw new Error("Error al escalar el ticket");
+      // Actualizar el estado local después de escalar
+      const updatedTicket = {
+        ...ticket,
+        category: {
+          ...ticket.category,
+          assignedArea: roles.find(role => role.nombre === selectedArea) || ticket.category.assignedArea
+        },
+        messages: ticket.messages ? [...ticket.messages, {
+          ...messageDTO,
+          timestamp: new Date().toISOString()
+        }] : [{...messageDTO, timestamp: new Date().toISOString()}],
+      };
 
       setTicket(updatedTicket);
       setInternalMessage("");
@@ -96,26 +96,25 @@ const TicketDetails = () => {
     const messageText = isInternal ? internalMessage : response;
     if (!messageText.trim()) return;
 
-    const newMessage = {
+    const messageDTO = {
       author: user.email,
       text: messageText,
-      timestamp: new Date().toISOString(),
-      internal: isInternal,
-    };
-
-    const updatedTicket = {
-      ...ticket,
-      messages: ticket.messages ? [...ticket.messages, newMessage] : [newMessage],
+      internal: isInternal
     };
 
     try {
-      const response = await fetch(`http://localhost:8081/tickets/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedTicket),
-      });
+      await apiService.post(`/tickets/${id}/messages`, messageDTO);
 
-      if (!response.ok) throw new Error("Error al agregar el mensaje");
+      // Actualizar el estado local después de agregar el mensaje
+      const updatedTicket = {
+        ...ticket,
+        messages: ticket.messages ? [
+          ...ticket.messages,
+          {...messageDTO, timestamp: new Date().toISOString()}
+        ] : [
+          {...messageDTO, timestamp: new Date().toISOString()}
+        ],
+      };
 
       setTicket(updatedTicket);
 
@@ -141,11 +140,10 @@ const TicketDetails = () => {
       {ticket && (
         <>
           <div className="ticket-details-card">
-            <h2>{ticket.category} - {ticket.id}</h2>
-            <p><strong>Descripción:</strong> {ticket.description}</p>
+            <h2>{ticket.category?.name || 'Sin categoría'} - {ticket.id}</h2>
             <p><strong>Estado:</strong> {ticket.status}</p>
-            <p><strong>Fecha de Creación:</strong> {new Date(ticket.createdAt).toLocaleDateString()}</p>
-            <p><strong>Fecha de vencimiento:</strong> {new Date(ticket.expiration).toLocaleDateString()}</p>
+            <p><strong>Prioridad:</strong> {ticket.priority}</p>
+            <p><strong>Área asignada:</strong> {ticket.category?.assignedArea?.nombre || "Sin asignar"}</p>
           </div>
 
           <div className="conversation-history">
@@ -178,7 +176,7 @@ const TicketDetails = () => {
 
           {/* 🔹 Sección de mensajes privados y escalamiento */}
           {/* 🔹 Verificar si el usuario tiene permisos para mensajes privados y escalamiento */}
-          {["admin", "Matrículas", "Pagos"].includes(user.role) && (
+          {["admin", "Tecnología", "Financiera"].includes(user.role) && (
             <div className="internal-message-toggle">
               <label>
                 <input
@@ -191,10 +189,11 @@ const TicketDetails = () => {
             </div>
           )}
 
-          {["admin", "Matrículas", "Pagos"].includes(user.role) && showInternal && (
+          {["admin", "Tecnología", "Financiera"].includes(user.role) && showInternal && (
             <div>
               <div className="response-form">
                 <h2>Mensaje Privado para Administradores</h2>
+
                 <textarea
                   placeholder="Escribe un mensaje interno..."
                   value={internalMessage}
@@ -209,7 +208,7 @@ const TicketDetails = () => {
                 <select value={selectedArea} onChange={(e) => setSelectedArea(e.target.value)}>
                   <option value="">Seleccionar área...</option>
                   {roles.map((role) => (
-                    <option key={role.id} value={role.name}>{role.name}</option>
+                      <option key={role.id} value={role.nombre}>{role.nombre}</option>
                   ))}
                 </select>
                 <button onClick={handleEscalateTicket} disabled={!internalMessage.trim()}>

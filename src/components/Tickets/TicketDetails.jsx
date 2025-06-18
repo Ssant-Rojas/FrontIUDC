@@ -8,13 +8,13 @@ const AdminTicketsList = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await fetch("http://localhost:8081/tickets");
-        if (!response.ok) throw new Error("Error al cargar los tickets");
-        const data = await response.json();
+        setLoading(true);
+        const { getTickets } = await import('../../services/api.js');
+        const data = await getTickets();
         setTickets(data);
-        setLoading(false);
       } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };

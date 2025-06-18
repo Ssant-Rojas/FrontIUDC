@@ -1,109 +1,186 @@
-import { useFetch } from "../../hooks/useFetch";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, PieChart, Pie, Cell } from "recharts";
+import {useFetch} from "../../hooks/useFetch";
+import apiService from "../../services/api";
+import {Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, Tooltip, XAxis, YAxis} from "recharts";
 import "../../styles/Dashboard/Dashboard.css";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import {useContext, useEffect, useState} from "react";
+import {AuthContext} from "../../context/AuthContext";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
-  const { data: stats, loading, error } = useFetch("http://localhost:8081/stats");
-  const { data: ticketStats } = useFetch("http://localhost:8081/ticketStats");
-  const { data: categoryStats } = useFetch("http://localhost:8081/categoryStats");
+    const {user} = useContext(AuthContext);
+    const [stats, setStats] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [ticketStats, setTicketStats] = useState(null);
+    const [categoryStats, setCategoryStats] = useState(null);
 
-  const filteredTicketStats = ticketStats
-    ? ticketStats.map((item) => {
-        if (user.role === "matriculas") {
-          return { month: item.month, matriculas: item.matriculas };
-        } else if (user.role === "pagos") {
-          return { month: item.month, pagos: item.pagos };
-        } else if (user.role === "certificados") {
-          return { month: item.month, certificados: item.certificados };
-        } else {
-          return item; 
-        }
-      })
-    : [];
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                setLoading(true);
+                const data = await apiService.get("/informe/stats");
+                setStats(data);
+                setLoading(false);
+            } catch (err) {
+                setError(err.message);
+                setLoading(false);
+            }
+        };
 
-  const filteredCategoryStats = categoryStats
-    ? categoryStats.filter((category) => {
-        if (user.role === "matriculas") return category.category === "Matriculas";
-        if (user.role === "pagos") return category.category === "Pagos";
-        if (user.role === "certificados") return category.category === "Certificados";
-        return true; 
-      })
-    : [];
+        fetchStats();
+    }, []);
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>Error al cargar datos</p>;
+    useEffect(() => {
+        const fetchTicketStats = async () => {
+            try {
+                const data = await apiService.get("/informe/tickets-por-mes");
+                setTicketStats(data);
+            } catch (err) {
+                console.error("Error al cargar estadísticas de tickets:", err);
+            }
+        };
 
-  return (
-    <div className="dashboard-container">
-      <h1 className="dashboard-title">📊 Dashboard Administrativo</h1>
+        fetchTicketStats();
+    }, []);
 
-      {/* Resumen General */}
-      <div className="stats-section">
-        <div className="stats-grid">
-          <div className="stat-card">
-            <h2>Usuarios Registrados</h2>
-            <p className="stat-value">{stats.totalUsers}</p>
-          </div>
-          <div className="stat-card">
-            <h2>Tickets Abiertos</h2>
-            <p className="stat-value">{stats.openTickets}</p>
-          </div>
-          <div className="stat-card">
-            <h2>Tickets Resueltos</h2>
-            <p className="stat-value">{stats.resolvedTickets}</p>
-          </div>
-          <div className="stat-card">
-            <h2>Promedio Resolución</h2>
-            <p className="stat-value">{stats.avgResolutionTime} días</p>
-          </div>
+    useEffect(() => {
+        const fetchCategoryStats = async () => {
+            try {
+                const data = await apiService.get("/informe/stats/categories");
+                setCategoryStats(data.categoryStats);
+            } catch (err) {
+                console.error("Error al cargar estadísticas de categorías:", err);
+            }
+        };
+
+        fetchCategoryStats();
+    }, []);
+
+
+    if (loading) return <p>Cargando...</p>;
+
+    const filteredTicketStats = ticketStats
+        ? ticketStats.map((item) => {
+            // Para usuarios admin, devolver todos los datos sin modificar
+            if (user.role === "admin") {
+                return {...item};
+            } else {
+                // Para otros usuarios, filtrar según categorías específicas
+                const userRoles = ["Soporte a equipos", "Correo institucional", user.role];
+                const filteredItem = { month: item.month, id: item.id };
+
+                // Mantener solo las categorías relacionadas con el usuario
+                Object.keys(item).forEach(key => {
+                    if (userRoles.includes(key) || key === "month" || key === "id") {
+                        filteredItem[key] = item[key];
+                    }
+                });
+                return filteredItem;
+            }
+        })
+        : [];
+
+    const filteredCategoryStats = categoryStats
+        ? categoryStats.filter((category) => {
+            if (user.role === "matriculas") return category.category === "Matriculas";
+            if (user.role === "pagos") return category.category === "Pagos";
+            if (user.role === "certificados") return category.category === "Certificados";
+            return true;
+        })
+        : [];
+
+    if (loading) return <p>Cargando...</p>;
+    if (error) return <p>Error al cargar datos</p>;
+
+
+    return (
+        <div className="dashboard-container">
+            <h1 className="dashboard-title">📊 Dashboard Administrativo</h1>
+
+            {/* Resumen General */}
+            <div className="stats-section">
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <h2>Usuarios Registrados</h2>
+                        <p className="stat-value">{stats.totalUsers}</p>
+                    </div>
+                    <div className="stat-card">
+                        <h2>Tickets Abiertos</h2>
+                        <p className="stat-value">{stats.openTickets}</p>
+                    </div>
+                    <div className="stat-card">
+                        <h2>Tickets Resueltos</h2>
+                        <p className="stat-value">{stats.resolvedTickets}</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Tickets por Mes */}
+            <div className="chart-section">
+                <h2 className="chart-title">Tickets por Mes</h2>
+                {console.log("Datos originales API:", ticketStats)}
+                {console.log("Datos filtrados:", filteredTicketStats)}
+                {console.log("Usuario actual:", user)}
+                {filteredTicketStats && filteredTicketStats.length > 0 ? (
+                    <BarChart width={600} height={300} data={filteredTicketStats} className="chart">
+                        <CartesianGrid strokeDasharray="3 3"/>
+                        <XAxis dataKey="month"/>
+                        <YAxis/>
+                        <Tooltip/>
+                        {Object.keys(filteredTicketStats[0])
+                            .filter(key => key !== "month" && key !== "id")
+                            .map((category, index) => (
+                                <Bar
+                                    key={category}
+                                    dataKey={category}
+                                    fill={["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#a4de6c"][index % 5]}
+                                    name={category}
+                                />
+                            ))
+                        }
+                    </BarChart>
+                ) : (
+                    <p>No hay datos disponibles para mostrar en el gráfico</p>
+                )}
+            </div>
+
+            {/* Distribución de Tickets por Categoría */}
+            <div className="chart-section">
+                <h2 className="chart-title">Distribución de Tickets por Categoría</h2>
+                <div className="chart-container">
+                    <div className="chart-info">
+                        <h3>Tickets Resueltos vs Abiertos</h3>
+                        <BarChart width={600} height={300} data={filteredCategoryStats} className="chart">
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <XAxis dataKey="category"/>
+                            <YAxis/>
+                            <Tooltip/>
+                            <Bar dataKey="resolved" fill="#82ca9d" name="Resueltos" />
+                            <Bar dataKey="open" fill="#8884d8" name="Abiertos" />
+                        </BarChart>
+                    </div>
+                    <div className="chart-info">
+                        <h3>Distribución por Estado</h3>
+                        <PieChart width={400} height={300} className="chart">
+                            <Pie
+                                data={filteredCategoryStats}
+                                cx={200}
+                                cy={150}
+                                outerRadius={80}
+                                dataKey="resolved"
+                                nameKey="category"
+                                label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                            >
+                                {filteredCategoryStats.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={["#82ca9d", "#ffc658", "#ff8042", "#a4de6c"][index % 4]}/>
+                                ))}
+                            </Pie>
+                            <Tooltip formatter={(value, name) => [`${value} tickets resueltos`, name]} />
+                        </PieChart>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      {/* Tickets por Mes */}
-      <div className="chart-section">
-        <h2 className="chart-title">Tickets por Mes</h2>
-        <BarChart width={600} height={300} data={filteredTicketStats} className="chart">
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
-          <YAxis />
-          <Tooltip />
-          {user.role === "matriculas" && <Bar dataKey="matriculas" fill="#8884d8" />}
-          {user.role === "pagos" && <Bar dataKey="pagos" fill="#82ca9d" />}
-          {user.role === "certificados" && <Bar dataKey="certificados" fill="#ffc658" />}
-          {user.role === "admin" && (
-            <>
-              <Bar dataKey="matriculas" fill="#8884d8" />
-              <Bar dataKey="pagos" fill="#82ca9d" />
-              <Bar dataKey="certificados" fill="#ffc658" />
-            </>
-          )}
-        </BarChart>
-      </div>
-
-      {/* Distribución de Tickets por Categoría */}
-      <div className="chart-section">
-        <h2 className="chart-title">Distribución de Tickets por Categoría</h2>
-        <PieChart width={400} height={400} className="chart">
-          <Pie
-            data={filteredCategoryStats}
-            cx={200}
-            cy={200}
-            outerRadius={100}
-            dataKey="resolved"
-            label
-          >
-            {filteredCategoryStats.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={["#8884d8", "#82ca9d", "#ffc658"][index % 3]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Dashboard;
