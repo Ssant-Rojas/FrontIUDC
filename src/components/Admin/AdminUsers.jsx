@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import '../../styles/AdminUsers.css'
+import '../../styles/AdminUsers.css';
+import { toast } from "react-toastify";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
-  const [newUser, setNewUser] = useState({ name: "", email: "", role: "" });
+  const [newUser, setNewUser] = useState({ name: "", email: "", password: "", role: "" });
+  const [newRole, setNewRole] = useState({ name: "", priority: "Media" });
 
   useEffect(() => {
     fetch("http://localhost:8081/users")
@@ -30,8 +32,8 @@ const AdminUsers = () => {
   };
 
   const handleCreateUser = () => {
-    if (!newUser.name || !newUser.email || !newUser.role) {
-      alert("Todos los campos son obligatorios.");
+    if (!newUser.name || !newUser.email || !newUser.password || !newUser.role) {
+      toast.error("Todos los campos son obligatorios.");
       return;
     }
 
@@ -44,7 +46,57 @@ const AdminUsers = () => {
       body: JSON.stringify(newUserData),
     });
 
-    setNewUser({ name: "", email: "", role: "" });
+    setNewUser({ name: "", email: "", password: "", role: "" });
+    toast.success("Usuario creado exitosamente.");
+  };
+
+  const handleCreateRole = async (e) => {
+    e.preventDefault();
+
+    if (!newRole.name.trim()) {
+      toast.error("El nombre del rol no puede estar vacío.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8081/roles", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newRole),
+      });
+
+      if (response.ok) {
+        const createdRole = await response.json();
+        setRoles([...roles, createdRole]);
+        toast.success("Rol creado exitosamente.");
+        setNewRole({ name: "", priority: "Media" });
+      } else {
+        toast.error("Error al crear el rol.");
+      }
+    } catch (error) {
+      console.error("❌ Error al conectar con el servidor:", error);
+      toast.error("Error al conectar con el servidor.");
+    }
+  };
+
+  const handleDeleteRole = async (roleId) => {
+    if (!window.confirm("¿Seguro que deseas eliminar este rol?")) return;
+
+    try {
+      const response = await fetch(`http://localhost:8081/roles/${roleId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setRoles(roles.filter((role) => role.id !== roleId));
+        toast.success("Rol eliminado exitosamente.");
+      } else {
+        toast.error("Error al eliminar el rol.");
+      }
+    } catch (error) {
+      console.error("❌ Error al conectar con el servidor:", error);
+      toast.error("Error al conectar con el servidor.");
+    }
   };
 
   return (
@@ -102,9 +154,9 @@ const AdminUsers = () => {
       <input 
         type="password"
         placeholder="Contraseña"
-        value={newUser.password || "" }
+        value={newUser.password}
         onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} 
-        />
+      />
 
       <select
         value={newUser.role}
@@ -118,6 +170,46 @@ const AdminUsers = () => {
         ))}
       </select>
       <button onClick={handleCreateUser}>Crear Usuario</button>
+
+      {/* 🔹 Gestión de Roles */}
+      <h1>Gestión de Roles</h1>
+      <form className="role-form" onSubmit={handleCreateRole}>
+        <h2>Agregar Nuevo Rol</h2>
+        <input
+          type="text"
+          placeholder="Nombre del rol"
+          value={newRole.name}
+          onChange={(e) => setNewRole({ ...newRole, name: e.target.value })}
+          required
+        />
+        <select
+          value={newRole.priority}
+          onChange={(e) => setNewRole({ ...newRole, priority: e.target.value })}
+        >
+          <option value="Alta">Alta</option>
+          <option value="Media">Media</option>
+          <option value="Baja">Baja</option>
+        </select>
+        <button type="submit">Crear Rol</button>
+      </form>
+
+      {/* 🔹 Lista de roles */}
+      <div className="roles-list">
+        <h2>Lista de Roles</h2>
+        {roles.length > 0 ? (
+          roles.map((role) => (
+            <div key={role.id} className="role-card">
+              <p><strong>Nombre:</strong> {role.name}</p>
+              <p><strong>Prioridad:</strong> {role.priority}</p>
+              <button className="delete-button" onClick={() => handleDeleteRole(role.id)}>
+                Eliminar
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No hay roles registrados.</p>
+        )}
+      </div>
     </div>
   );
 };

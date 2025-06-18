@@ -5,8 +5,8 @@ import backgroundImage from '../../assets/Sede-verde-capas.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const server = 'http://localhost:8080/api/personas';
-
+//const server = 'http://localhost:8080/api/personas';
+const server = 'http://localhost:8081/users'
 function RegisterPage() {
   const navigate = useNavigate();
   const [nombres, setNombres] = useState('');
@@ -15,7 +15,7 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [celular, setCelular] = useState('');
   const [loading, setLoading] = useState(false);
-  const tipoUsuario = 'A';
+  const tipoUsuario = 'Alumno';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ function RegisterPage() {
 
       if (response.ok) {
         toast.success('Registro exitoso. Inicia sesión para continuar');
-        navigate('/'); // Redirige al login
+        navigate('/'); 
       } else {
         const errorData = await response.json();
         toast.error(`Error en el registro: ${errorData.message || 'Verifica los datos ingresados'}`);

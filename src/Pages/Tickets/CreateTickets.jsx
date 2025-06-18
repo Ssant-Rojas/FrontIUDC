@@ -1,15 +1,31 @@
-import React, { useState } from "react";
-import "../../styles/CreateTicket.css"; // Asegúrate de definir estilos según tu diseño
-import { useAuth } from "../../hooks/useAuth"; // Para obtener información del usuario autenticado
+import React, { useState, useEffect } from "react";
+import "../../styles/CreateTicket.css";
+import { useAuth } from "../../hooks/useAuth";
 
 const CreateTicket = () => {
   const [formData, setFormData] = useState({
     category: "",
     description: "",
-    priority: "Media",
   });
+  const [categories, setCategories] = useState([]); // ✅ Lista de categorías desde la API
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth(); // Obtener datos del usuario autenticado
+  const { user } = useAuth();
+
+  // 🔹 Obtener las categorías desde la API de roles
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/roles");
+        if (!response.ok) throw new Error("Error al cargar las categorías");
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error al obtener las categorías:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,27 +40,37 @@ const CreateTicket = () => {
       return;
     }
 
+    // 🔹 La prioridad se asigna automáticamente según la categoría
+    let priority = "Media";
+    if (formData.category === "Pagos") priority = "Alta";
+    else if (formData.category === "Matrículas") priority = "Baja";
+
+    const assignedArea = formData.category; // ✅ Se asigna automáticamente el área
+
     const newTicket = {
       ...formData,
+      assignedArea,
+      priority, // ✅ Se asigna automáticamente
       status: "Pendiente",
       createdAt: new Date().toISOString(),
-      owner: user.email, // Asociar el ticket al usuario autenticado
+      expiration: new Date(new Date().setDate(new Date().getDate() + (priority === "Alta" ? 1 : priority === "Media" ? 3 : 7))).toISOString(),
+      owner: user.email
     };
+
+    console.log("📤 Ticket enviado al backend:", newTicket); // 🔍 Verifica en la consola
 
     setLoading(true);
 
     try {
       const response = await fetch("http://localhost:8081/tickets", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTicket),
       });
 
       if (response.ok) {
         alert("Ticket creado exitosamente.");
-        setFormData({ category: "", description: "", priority: "Media" }); // Reiniciar el formulario
+        setFormData({ category: "", description: "" });
       } else {
         alert("Error al crear el ticket.");
       }
@@ -68,9 +94,9 @@ const CreateTicket = () => {
           required
         >
           <option value="">Seleccionar...</option>
-          <option value="Matrículas">Matrículas</option>
-          <option value="Pagos">Pagos</option>
-          <option value="Certificados">Certificados</option>
+          {categories.map((role) => (
+            <option key={role.id} value={role.name}>{role.name}</option>
+          ))}
         </select>
       </div>
       <div className="form-group">
@@ -81,18 +107,6 @@ const CreateTicket = () => {
           onChange={handleChange}
           required
         ></textarea>
-      </div>
-      <div className="form-group">
-        <label>Prioridad</label>
-        <select
-          name="priority"
-          value={formData.priority}
-          onChange={handleChange}
-        >
-          <option value="Alta">Alta</option>
-          <option value="Media">Media</option>
-          <option value="Baja">Baja</option>
-        </select>
       </div>
       <button type="submit" disabled={loading}>
         {loading ? "Creando..." : "Crear Ticket"}

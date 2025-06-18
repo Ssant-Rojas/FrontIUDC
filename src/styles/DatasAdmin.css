@@ -1,4 +1,3 @@
-/* Barra lateral compacta */
 .sidebar {
   width: 200px;
   background-color: #003366;
@@ -27,15 +26,13 @@
   background-color: #00509e;
 }
 
-/* Contenedor de la tabla y la barra lateral */
 .financial-status-container {
   display: block;
-  margin-left: 200px; /* Ancho de la barra lateral */
+  margin-left: 200px; 
   padding: 20px;
   font-family: 'Arial', sans-serif;
 }
 
-/* Estilo de la tabla compacta */
 .financial-table-container {
   background-color: #f9f9f9;
   padding: 15px;
@@ -50,7 +47,7 @@
 }
 
 .financial-table th, .financial-table td {
-  padding: 8px 10px;  /* Reducir el padding */
+  padding: 8px 10px;  
   text-align: left;
   border: 1px solid #ddd;
   font-size: 13px;
@@ -87,14 +84,12 @@
   color: #003366;
 }
 
-/* Estilo de los checkboxes */
 .star {
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
 
-/* Paginación compacta */
 .pagination {
   display: flex;
   justify-content: center;
@@ -103,7 +98,7 @@
 }
 
 .pagination button {
-  padding: 6px 10px; /* Reducir tamaño de los botones */
+  padding: 6px 10px; 
   margin: 0 6px;
   background-color: transparent;
   color: #003366;

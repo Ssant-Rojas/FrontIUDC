@@ -18,17 +18,17 @@ function PedirAyuda() {
         <div className="popular-card">
           <h4>Citas</h4>
           <p>Agenda tus citas para recibir atención personalizada.</p>
-          <button onClick={() => handleNavigate('/citas')}>Ver detalles</button>
+          <button onClick={() => handleNavigate('/solicitud/crear')}>Ver detalles</button>
         </div>
         <div className="popular-card">
           <h4>PQR'S</h4>
           <p>Envía tus peticiones, quejas y reclamos para ser atendidos.</p>
-          <button onClick={() => handleNavigate('/pqr')}>Ver detalles</button>
+          <button onClick={() => handleNavigate('/solicitud/crear')}>Ver detalles</button>
         </div>
         <div className="popular-card">
           <h4>Pagos</h4>
           <p>Consulta y realiza tus pagos pendientes de matrículas o servicios.</p>
-          <button onClick={() => handleNavigate('/pagos')}>Ver detalles</button>
+          <button onClick={() => handleNavigate('/solicitud/crear')}>Ver detalles</button>
         </div>
       </section>
     </div>

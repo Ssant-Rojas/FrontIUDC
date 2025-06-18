@@ -99,4 +99,126 @@
     background-color: #cccccc;
     cursor: not-allowed;
   }
+
+
+  .admin-users-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1, h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* 🔹 Tabla de usuarios */
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .user-table th, .user-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background: #007bff;
+    color: white;
+  }
+  
+  .user-table tr:hover {
+    background: #e9ecef;
+  }
+  
+  /* 🔹 Botones */
+  button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  .delete-button {
+    background: #dc3545;
+  }
+  
+  .delete-button:hover {
+    background: #c82333;
+  }
+  
+  /* 🔹 Formulario de nuevo usuario */
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .role-form, .create-user-form {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .role-form h2, .create-user-form h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* 🔹 Tarjetas de roles */
+  .roles-list {
+    margin-top: 20px;
+  }
+  
+  .role-card {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .role-card p {
+    margin: 5px 0;
+  }
+  
+  /* 🔹 Diseño responsivo */
+  @media (max-width: 768px) {
+    .user-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .role-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
   

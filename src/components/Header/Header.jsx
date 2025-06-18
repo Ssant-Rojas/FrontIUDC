@@ -1,7 +1,7 @@
 import "./HeaderStyles.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext"; // ✅ Verifica la ruta
+import { AuthContext } from "../../context/AuthContext"; 
 
 function Header() {
   const { isAuthenticated, user, logout } = useContext(AuthContext);
@@ -20,7 +20,6 @@ function Header() {
           <>
             <Link to="/solicitud/crear" className="Header-Link">Crear Solicitud</Link>
             <Link to="/solicitud" className="Header-Link">Mis Solicitudes</Link>
-            <Link to="/admin/tickets" className="Header-Link">Admin Tickets</Link>
           {/* a
             {/* ✅ Si el usuario es admin, mostrar botón Dashboard */}
             {/* {isAuthenticated && user?.role === "admin" && (
@@ -46,6 +45,9 @@ function Header() {
 
           {isAuthenticated && user?.role === "admin" && (
           <>
+            <Link to="/admin/tickets" className="Header-Link">
+              Admin Tickets
+            </Link>
             <Link to="/admin/dashboard" className="Header-Link">
               Dashboard General
             </Link>
@@ -56,15 +58,21 @@ function Header() {
         )}
 
         {/* Opciones para roles específicos */}
-        {isAuthenticated && user?.role === "matriculas" && (
-          <Link to="/matriculas" className="Header-Link">
-            Matriculas
+        {isAuthenticated && user?.role === "Matrículas" && (
+          <div>
+            <Link to="/admin/tickets" className="Header-Link">
+            Admin Tickets
           </Link>
+       
+          </div>
         )}
         {isAuthenticated && user?.role === "pagos" && (
-          <Link to="/reportar" className="Header-Link">
-            Pagos
-          </Link>
+          <div>
+          <Link to="/admin/tickets" className="Header-Link">
+          Admin Tickets
+        </Link>
+
+          </div>
         )}
 
         {/* Botón de cerrar sesión */}

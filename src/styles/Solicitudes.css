@@ -1,10 +1,8 @@
-/* Estilos generales para la página de solicitudes */
 .solicitudes-page {
   margin: 20px;
   font-family: 'Arial', sans-serif;
 }
 
-/* Estilo para el título de la página */
 .solicitudes-page h1 {
   text-align: center;
   color: #003366;
@@ -12,12 +10,10 @@
   margin-bottom: 20px;
 }
 
-/* Contenedor de la tabla */
 .table-container {
   margin-bottom: 20px;
 }
 
-/* Estilos de la tabla */
 .solicitudes-table {
   width: 100%;
   border-collapse: collapse;
@@ -31,14 +27,12 @@
   border: 1px solid #ddd;
 }
 
-/* Estilo para los encabezados de las tablas */
 .solicitudes-table th {
   background-color: #003366;
   color: white;
   font-weight: bold;
 }
 
-/* Estilo para las filas de la tabla */
 .solicitudes-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -47,20 +41,17 @@
   background-color: #ffffff;
 }
 
-/* Estilo para los campos de fecha */
 .solicitudes-table td {
   font-size: 14px;
   color: #333;
 }
 
-/* Estilo para el texto de "Cargando..." y errores */
 .solicitudes-page p {
   text-align: center;
   font-size: 18px;
   color: #003366;
 }
 
-/* Estilo para las filas de actividad dentro de los detalles de solicitud */
 .detalle-solicitud {
   margin-top: 30px;
 }
@@ -86,7 +77,6 @@
   padding-top: 5px;
 }
 
-/* Estilo para la fila de los botones de detalles (opcional si tienes botones) */
 .actividad-item button {
   background-color: #003366;
   color: white;

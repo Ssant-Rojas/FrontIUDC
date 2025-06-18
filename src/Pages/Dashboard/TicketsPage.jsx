@@ -4,7 +4,7 @@ import { mostrarNotificacion, configurarNotificaciones } from "../utils/notifica
 
 const TicketsPage = ({ tickets }) => {
   useEffect(() => {
-    configurarNotificaciones(); // Configura las notificaciones al cargar
+    configurarNotificaciones();
 
     tickets.forEach((ticket) => {
       const horasRestantes = (new Date(ticket.fechaVencimiento) - new Date()) / 36e5;

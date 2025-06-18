@@ -1,57 +1,97 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../hooks/useAuth"; // Para obtener el usuario autenticado
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import "../../styles/SolicitudesPage.css";
 
 const SolicitudesPage = () => {
-  const [solicitudes, setSolicitudes] = useState([]);
+  const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth(); // Obtener datos del usuario autenticado
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchSolicitudes = async () => {
+    const fetchTickets = async () => {
       try {
-        const response = await fetch("http://localhost:8081/solicitudes");
-        if (!response.ok) throw new Error("Error al cargar las solicitudes");
+        const response = await fetch("http://localhost:8081/tickets");  // 🔴 CAMBIADO A `/tickets`
+        if (!response.ok) throw new Error("Error al cargar los tickets");
         const data = await response.json();
-
-        // Filtrar solicitudes por el usuario autenticado
-        const filteredSolicitudes = data.filter(
-          (solicitud) => solicitud.owner === user.email
-        );
-        setSolicitudes(filteredSolicitudes);
+    
+        const filteredTickets = data.filter((ticket) => ticket.owner === user.email);
+        setTickets(filteredTickets);
         setLoading(false);
       } catch (err) {
         setError(err.message);
         setLoading(false);
       }
-    };
+    };    
 
-    fetchSolicitudes();
+    fetchTickets();
   }, [user.email]);
 
-  if (loading) return <p className="loading">Cargando solicitudes...</p>;
+  const calculateExpiration = (priority) => {
+    const expirationDays = {
+      Alta: 1,
+      Media: 3,
+      Baja: 7,
+    };
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + (expirationDays[priority] || 3));
+    return expirationDate.toISOString();
+  };
+  const handleTicketClick = (id) => {
+    navigate('/admin/tickets/'+ id );
+  };
+
+  const handleCreateTicket = async (nuevoTicket) => {
+    try {
+      const newTicket = {
+        ...nuevoTicket,
+        status: "Pendiente",
+        createdAt: new Date().toISOString(),
+        expiration: calculateExpiration(nuevoTicket.priority),
+        owner: user.email,
+      };
+
+      const response = await fetch("http://localhost:8081/tickets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTicket),
+      });
+
+      if (!response.ok) throw new Error("Error al crear el ticket");
+
+      setTickets((prev) => [...prev, newTicket]);
+    } catch (err) {
+      console.error("Error al guardar el ticket:", err);
+    }
+  };
+
+  if (loading) return <p className="loading">Cargando tickets...</p>;
   if (error) return <p className="error">Error: {error}</p>;
 
   return (
     <div className="solicitudes-container">
-      <h1 className="title">📄 Mis Solicitudes</h1>
+      <h1 className="title">📄 Mis Tickets</h1>
       <div className="solicitudes-list">
-        {solicitudes.length > 0 ? (
-          solicitudes.map((solicitud) => (
-            <div key={solicitud.id} className="solicitud-card">
-              <h2 className="solicitud-title">{solicitud.title}</h2>
-              <p className="solicitud-description">{solicitud.description}</p>
+        {tickets.length > 0 ? (
+          tickets.map((ticket) => (
+            <div key={ticket.id} className="solicitud-card" onClick={() => handleTicketClick(ticket.id)} style={{cursor: "pointer"}}>
+              <h2 className="solicitud-title">{ticket.title || "Sin título"}</h2>
+              <p className="solicitud-description">{ticket.description}</p>
               <p className="solicitud-status">
-                Estado: <strong>{solicitud.status}</strong>
+                Estado: <strong>{ticket.status}</strong>
               </p>
               <p className="solicitud-date">
-                Fecha: {new Date(solicitud.createdAt).toLocaleDateString()}
+                Creado: {new Date(ticket.createdAt).toLocaleDateString()}
+              </p>
+              <p className="solicitud-date">
+                Expira: {new Date(ticket.expiration).toLocaleDateString()}
               </p>
             </div>
           ))
         ) : (
-          <p className="no-solicitudes">No tienes solicitudes creadas.</p>
+          <p className="no-solicitudes">No tienes tickets creados.</p>
         )}
       </div>
     </div>

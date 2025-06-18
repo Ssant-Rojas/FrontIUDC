@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../../styles/TicketDetails.css";
+import { useAuth } from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import "../../styles/TicketDetails.css";
 
 const TicketDetails = () => {
   const { id } = useParams();
+  const { user } = useAuth();
   const [ticket, setTicket] = useState(null);
+  const [roles, setRoles] = useState([]); // ✅ Lista de roles para escalación
   const [response, setResponse] = useState("");
+  const [internalMessage, setInternalMessage] = useState("");
+  const [showInternal, setShowInternal] = useState(false);
+  const [selectedArea, setSelectedArea] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -25,29 +31,76 @@ const TicketDetails = () => {
       }
     };
 
+    const fetchRoles = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/roles");
+        if (!response.ok) throw new Error("Error al cargar los roles");
+        const data = await response.json();
+        setRoles(data);
+      } catch (err) {
+        console.error("Error al obtener los roles:", err.message);
+      }
+    };
+
     if (id) {
       fetchTicket();
+      fetchRoles();
     }
   }, [id]);
 
-  const getFormattedTicketId = (category, id) => {
-    const prefixes = {
-      "Matrículas": "IUDCM",
-      "Pagos": "IUDCP",
-      "Certificados": "IUDCC"
+  const handleEscalateTicket = async () => {
+    if (!selectedArea) {
+      toast.error("Debes seleccionar un área para escalar el ticket.");
+      return;
+    }
+
+    if (!internalMessage.trim()) {
+      toast.error("Debes agregar un mensaje privado antes de escalar el ticket.");
+      return;
+    }
+
+    const escalationComment = {
+      author: user.email,
+      text: `El usuario ${user.name} escaló el ticket de ${ticket.assignedArea || "Sin Asignar"} a ${selectedArea}.`,
+      timestamp: new Date().toISOString(),
+      internal: true,
     };
-    return `${prefixes[category] || "IUDC"}${id}`;
+
+    const updatedTicket = {
+      ...ticket,
+      assignedArea: selectedArea,
+      messages: ticket.messages ? [...ticket.messages, escalationComment] : [escalationComment],
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8081/tickets/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedTicket),
+      });
+
+      if (!response.ok) throw new Error("Error al escalar el ticket");
+
+      setTicket(updatedTicket);
+      setInternalMessage("");
+      setSelectedArea("");
+
+      toast.success(`Ticket escalado a ${selectedArea}.`);
+    } catch (error) {
+      console.error("Error al escalar el ticket:", error);
+      toast.error("Error al escalar el ticket.");
+    }
   };
 
-  const handleResponseSubmit = async (e) => {
-    e.preventDefault();
-
-    if (ticket.status === "Cerrado") return;
+  const handleAddMessage = async (isInternal) => {
+    const messageText = isInternal ? internalMessage : response;
+    if (!messageText.trim()) return;
 
     const newMessage = {
-      author: "Admin",
-      text: response,
+      author: user.email,
+      text: messageText,
       timestamp: new Date().toISOString(),
+      internal: isInternal,
     };
 
     const updatedTicket = {
@@ -56,45 +109,26 @@ const TicketDetails = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:8081/tickets/${id}`, {
+      const response = await fetch(`http://localhost:8081/tickets/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedTicket),
       });
 
-      if (!res.ok) throw new Error("Error al actualizar el ticket");
-      toast.success("Respuesta enviada exitosamente");
+      if (!response.ok) throw new Error("Error al agregar el mensaje");
+
       setTicket(updatedTicket);
-      setResponse("");
-    } catch (err) {
-      toast.error(`Error: ${err.message}`);
-    }
-  };
 
-  const handleCloseTicket = async () => {
-    if (!ticket) return;
+      if (isInternal) {
+        setInternalMessage("");
+      } else {
+        setResponse("");
+      }
 
-    const updatedTicket = {
-      ...ticket,
-      status: "Cerrado",
-    };
-
-    try {
-      const res = await fetch(`http://localhost:8081/tickets/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedTicket),
-      });
-
-      if (!res.ok) throw new Error("Error al cerrar el ticket");
-      toast.success("El ticket ha sido cerrado.");
-      setTicket(updatedTicket);
-    } catch (err) {
-      toast.error(`Error: ${err.message}`);
+      toast.success("Mensaje agregado correctamente.");
+    } catch (error) {
+      console.error("Error al agregar mensaje:", error);
+      toast.error("Error al agregar mensaje.");
     }
   };
 
@@ -107,32 +141,22 @@ const TicketDetails = () => {
       {ticket && (
         <>
           <div className="ticket-details-card">
-            <h2>
-              {getFormattedTicketId(ticket.category, ticket.id)} - {ticket.category}
-            </h2>
-            <p>
-              <strong>Descripción:</strong> {ticket.description}
-            </p>
-            <p>
-              <strong>Estado:</strong> {ticket.status}
-            </p>
-            <p>
-              <strong>Fecha de Creación:</strong>{" "}
-              {new Date(ticket.createdAt).toLocaleDateString()}
-            </p>
+            <h2>{ticket.category} - {ticket.id}</h2>
+            <p><strong>Descripción:</strong> {ticket.description}</p>
+            <p><strong>Estado:</strong> {ticket.status}</p>
+            <p><strong>Fecha de Creación:</strong> {new Date(ticket.createdAt).toLocaleDateString()}</p>
+            <p><strong>Fecha de vencimiento:</strong> {new Date(ticket.expiration).toLocaleDateString()}</p>
           </div>
+
           <div className="conversation-history">
             <h2>Historial de la Conversación</h2>
             <ul>
               {ticket.messages && ticket.messages.length > 0 ? (
                 ticket.messages.map((message, index) => (
-                  <li key={index}>
-                    <p>
-                      <strong>{message.author}:</strong> {message.text}
-                    </p>
-                    <p className="timestamp">
-                      {new Date(message.timestamp).toLocaleString()}
-                    </p>
+                  <li key={index} className={message.internal ? "internal-message" : "public-message"}>
+                    <p><strong>{message.author}:</strong> {message.text}</p>
+                    <p className="timestamp">{new Date(message.timestamp).toLocaleString()}</p>
+                    {message.internal && <span className="admin-tag">(Mensaje Privado)</span>}
                   </li>
                 ))
               ) : (
@@ -140,22 +164,59 @@ const TicketDetails = () => {
               )}
             </ul>
           </div>
-          {ticket.status !== "Cerrado" && (
-            <form className="response-form" onSubmit={handleResponseSubmit}>
-              <label htmlFor="response">Escribe tu respuesta:</label>
-              <textarea
-                id="response"
-                value={response}
-                onChange={(e) => setResponse(e.target.value)}
-                required
-              ></textarea>
-              <button type="submit">Enviar Respuesta</button>
-            </form>
+
+          <form className="response-form" onSubmit={(e) => { e.preventDefault(); handleAddMessage(false); }}>
+            <label htmlFor="response">Escribe tu respuesta:</label>
+            <textarea
+              id="response"
+              value={response}
+              onChange={(e) => setResponse(e.target.value)}
+              required
+            ></textarea>
+            <button type="submit">Enviar Respuesta</button>
+          </form>
+
+          {/* 🔹 Sección de mensajes privados y escalamiento */}
+          {/* 🔹 Verificar si el usuario tiene permisos para mensajes privados y escalamiento */}
+          {["admin", "Matrículas", "Pagos"].includes(user.role) && (
+            <div className="internal-message-toggle">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showInternal}
+                  onChange={() => setShowInternal(!showInternal)}
+                />
+                Agregar mensaje privado
+              </label>
+            </div>
           )}
-          {ticket.status !== "Cerrado" && (
-            <button className="close-ticket-button" onClick={handleCloseTicket}>
-              Cerrar Ticket
-            </button>
+
+          {["admin", "Matrículas", "Pagos"].includes(user.role) && showInternal && (
+            <div>
+              <div className="response-form">
+                <h2>Mensaje Privado para Administradores</h2>
+                <textarea
+                  placeholder="Escribe un mensaje interno..."
+                  value={internalMessage}
+                  onChange={(e) => setInternalMessage(e.target.value)}
+                />
+                <button onClick={() => handleAddMessage(true)}>Agregar Mensaje Privado</button>
+              </div>
+
+              <div className="escalation-form">
+                <h2>Escalar Ticket</h2>
+                <label>Seleccionar área:</label>
+                <select value={selectedArea} onChange={(e) => setSelectedArea(e.target.value)}>
+                  <option value="">Seleccionar área...</option>
+                  {roles.map((role) => (
+                    <option key={role.id} value={role.name}>{role.name}</option>
+                  ))}
+                </select>
+                <button onClick={handleEscalateTicket} disabled={!internalMessage.trim()}>
+                  Escalar Ticket
+                </button>
+              </div>
+            </div>
           )}
         </>
       )}

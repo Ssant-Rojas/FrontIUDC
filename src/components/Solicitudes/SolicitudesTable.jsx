@@ -11,6 +11,7 @@ function SolicitudesTable({ solicitudes, onSelectSolicitud }) {
             <th>Estado</th>
             <th>Descripción</th>
             <th>Creado</th>
+            <th>Expira</th>
           </tr>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@ function SolicitudesTable({ solicitudes, onSelectSolicitud }) {
               <td>{solicitud.estado}</td>
               <td>{solicitud.descripcion}</td>
               <td>{solicitud.creado}</td>
+              <td>{solicitud.expiration	}</td>
             </tr>
           ))}
         </tbody>
