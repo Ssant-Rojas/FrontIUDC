@@ -68,7 +68,6 @@ const TicketDetails = () => {
         targetArea: selectedArea
       });
 
-      // Actualizar el estado local después de escalar
       const updatedTicket = {
         ...ticket,
         category: {
@@ -105,7 +104,6 @@ const TicketDetails = () => {
     try {
       await apiService.post(`/tickets/${id}/messages`, messageDTO);
 
-      // Actualizar el estado local después de agregar el mensaje
       const updatedTicket = {
         ...ticket,
         messages: ticket.messages ? [
@@ -174,8 +172,7 @@ const TicketDetails = () => {
             <button type="submit">Enviar Respuesta</button>
           </form>
 
-          {/* 🔹 Sección de mensajes privados y escalamiento */}
-          {/* 🔹 Verificar si el usuario tiene permisos para mensajes privados y escalamiento */}
+
           {["admin", "Tecnología", "Financiera"].includes(user.role) && (
             <div className="internal-message-toggle">
               <label>

@@ -3,7 +3,7 @@ import "../../../styles/Aplazar.css";
 import { AuthContext } from "../../../context/AuthContext"; 
 
 function Aplazar() {
-  const { token } = useContext(AuthContext); // ✅ Accedemos al token desde el contexto
+  const { token } = useContext(AuthContext); 
   const [usr, setUsr] = useState("");
 
   const [formData, setFormData] = useState({
@@ -15,12 +15,10 @@ function Aplazar() {
     archivo: null,
   });
 
-  // ✅ Decodificar el token JWT para extraer el usuario autenticado
   useEffect(() => {
     if (token) {
       try {
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
-        console.log("Token decodificado:", decodedToken); 
         setUsr(decodedToken.sub || "Usuario Desconocido"); 
       } catch (error) {
         console.error("Error al decodificar el token:", error);

@@ -2,26 +2,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px); /* Altura total menos la altura del header */
+    min-height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.1)), url('../../assets/Sede-verde-capas.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 20px; /* Agrega un pequeño espacio interno */
-    margin-top: 0; /* Asegura que no haya separación arriba */
+    max-height: fit-content;
+    padding: 20px;
+    margin-top: 0;
 }
 
-
-
 .Letters {
-    background-color: rgba(255, 255, 255, 0.85); /* Fondo semitransparente */
+    background-color: rgba(255, 255, 255, 0.85);
     padding: 40px;
     border-radius: 10px;
     text-align: center;
-    color: #333; /* Mejor contraste */
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Agrega un efecto sutil de sombra */
+    color: #333;
+    max-width: 100%;
+    width: 500px;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
 
@@ -76,7 +76,7 @@
 }
 
 .login-button:hover {
-    background-color: #e65c00; /* Más oscuro al pasar el cursor */
+    background-color: #e65c00;
 }
 
 .login-button:disabled {
@@ -105,7 +105,7 @@
 @media (max-width: 600px) {
     .Letters {
         padding: 20px;
-        max-width: 300px;
+        max-width: 100%;
     }
 
     .Letters h1 {

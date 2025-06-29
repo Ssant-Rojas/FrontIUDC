@@ -70,3 +70,49 @@ header {
 .Header-Link-Button:hover {
     background-color: #1D2256;
 }
+
+
+.Hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.Hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+@media (max-width: 768px) {
+  .Hamburger {
+    display: flex;
+  }
+
+  .Header-Menu {
+    display: none;
+    flex-direction: column;
+    background-color: #1D2256;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .Header-Menu.open {
+    display: flex;
+  }
+
+  .Header-Link,
+  .Header-Link-Button {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .Logo img {
+    height: 50px;
+  }
+}

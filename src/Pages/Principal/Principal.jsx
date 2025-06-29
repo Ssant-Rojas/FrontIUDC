@@ -10,9 +10,7 @@ function PrincipalPage() {
 
   return (
     <>
-      {/* Contenedor principal */}
       <div className="main-container">
-        {/* Sección de búsqueda */}
         <header className="header-search">
           <h1>¿Cómo podemos asistirte?</h1>
           <div className="search-box">
@@ -23,16 +21,13 @@ function PrincipalPage() {
           </div>
         </header>
 
-        {/* Sección de opciones */}
         <section className="options-section">
-          {/* Botón activo */}
           <div className="option" onClick={handleSolicitarAyudaClick}>
             <i className="fa fa-shopping-bag option-icon"></i>
             <h2>Solicitar asistencia</h2>
             <p>Accede a servicios y recursos disponibles.</p>
           </div>
 
-          {/* Botones desactivados */}
           <div className="option disabled-option">
             <i className="fa fa-hands-helping option-icon"></i>
             <h2>Soporte académico</h2>

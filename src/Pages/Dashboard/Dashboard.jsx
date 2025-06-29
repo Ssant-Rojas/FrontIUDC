@@ -60,15 +60,12 @@ const Dashboard = () => {
 
     const filteredTicketStats = ticketStats
         ? ticketStats.map((item) => {
-            // Para usuarios admin, devolver todos los datos sin modificar
             if (user.role === "admin") {
                 return {...item};
             } else {
-                // Para otros usuarios, filtrar según categorías específicas
                 const userRoles = ["Soporte a equipos", "Correo institucional", user.role];
                 const filteredItem = { month: item.month, id: item.id };
 
-                // Mantener solo las categorías relacionadas con el usuario
                 Object.keys(item).forEach(key => {
                     if (userRoles.includes(key) || key === "month" || key === "id") {
                         filteredItem[key] = item[key];
@@ -96,7 +93,6 @@ const Dashboard = () => {
         <div className="dashboard-container">
             <h1 className="dashboard-title">📊 Dashboard Administrativo</h1>
 
-            {/* Resumen General */}
             <div className="stats-section">
                 <div className="stats-grid">
                     <div className="stat-card">
@@ -114,7 +110,6 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Tickets por Mes */}
             <div className="chart-section">
                 <h2 className="chart-title">Tickets por Mes</h2>
                 {console.log("Datos originales API:", ticketStats)}
@@ -143,7 +138,6 @@ const Dashboard = () => {
                 )}
             </div>
 
-            {/* Distribución de Tickets por Categoría */}
             <div className="chart-section">
                 <h2 className="chart-title">Distribución de Tickets por Categoría</h2>
                 <div className="chart-container">

@@ -62,7 +62,6 @@ const CreateTicket = ({onTicketCreated}) => {
                 return new Promise((resolve) => {
                     const reader = new FileReader();
                     reader.onloadend = () => {
-                        // Obtener el base64 sin el prefijo (data:application/pdf;base64,)
                         const base64String = reader.result.split(',')[1];
                         resolve({
                             nombre: file.name,

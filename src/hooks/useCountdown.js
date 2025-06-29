@@ -24,7 +24,7 @@ export const useCountdown = (expiration) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
-    }, 60000); // Actualiza cada minuto en lugar de cada segundo para optimizar rendimiento
+    }, 60000);
 
     return () => clearInterval(timer);
   }, [expiration]);

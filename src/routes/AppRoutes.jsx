@@ -16,7 +16,6 @@ import SolicitudesINFO from "../Pages/SolicitudesINFO/SolicitudesINFO";
 import NotFound from "../Pages/NotFound/NotFound";
 
 import CreateTicket from "../components/Tickets/CreateTicket.jsx";
-// import { useAuth } from "../hooks/useAuth.js";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 
@@ -31,27 +30,16 @@ const AppRoutes = () => {
   const { user } = useContext(AuthContext);
   return (
     <Routes>
-      {/* Rutas públicas */}
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
 
-      {/* Rutas protegidas */}
       <Route path="/principal" element={<ProtectedRoute element={<PrincipalPage />} />} />
       <Route path="/pedirAyuda" element={<ProtectedRoute element={<PedirAyuda />} />} />
-      
-      
-      {/* <Route path="/citas" element={<ProtectedRoute element={<Citas />} />} />
-      <Route path="/matriculas" element={<ProtectedRoute element={<Matriculas />} />} />
-      <Route path="/aplazar" element={<ProtectedRoute element={<Aplazar />} />} />
-      <Route path="/reportar" element={<ProtectedRoute element={<Reportes />} />} />
-      <Route path="/agendamiento" element={<ProtectedRoute element={<Agendamientos />} />} />
-      <Route path="/pqr" element={<ProtectedRoute element={<Problemasquejasreclamos />} />} /> */}
-      
+
       <Route path="/tickets/:ticketId" element={<ProtectedRoute element={<SolicitudesINFO />} />} />
       <Route path="/solicitud" element={<ProtectedRoute element={<SolicitudesPage />} />} />
       <Route path="/solicitud/crear" element={<CreateTicket />}/>
 
-      {/* Admin */}
       <Route element={<ProtectedRoute element={<AdminLayout />} requiredRoles={["admin"]} />}>
       </Route>
 
@@ -60,12 +48,8 @@ const AppRoutes = () => {
       <Route path="/admin/tickets" element={<AdminTicketsList />} />
       <Route path="/admin/tickets/:id" element={<TicketDetails />} />
 
-
-
-      {/* Acceso no autorizado */}
       <Route path="/unauthorized" element={<Unauthorized />} />
 
-      {/* Página 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

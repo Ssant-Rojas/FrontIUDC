@@ -12,7 +12,6 @@ const AdminUsers = () => {
     useEffect(() => {
         apiService.get('/user', 'tickets')
             .then(data => {
-                // Transformar los datos al formato esperado por el componente
                 const formattedUsers = data.map(user => ({
                     id: user.idPersona,
                     name: `${user.nombres} ${user.apellidos}`,
@@ -178,9 +177,6 @@ const AdminUsers = () => {
           ))}
       </select>
       <button onClick={handleCreateUser}>Crear Usuario</button>
-
-      {/* 🔹 Gestión de Roles */}
-
         <h1>Gestión de Roles</h1>
         <form className="role-form" onSubmit={handleCreateRole}>
             <h2>Agregar Nuevo Rol</h2>
@@ -199,10 +195,6 @@ const AdminUsers = () => {
             />
             <button type="submit">Crear Rol</button>
         </form>
-
-      {/* 🔹 Lista de roles */}
-
-
       <div className="roles-list">
         <h2>Lista de Roles</h2>
         {roles.length > 0 ? (

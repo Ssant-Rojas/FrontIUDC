@@ -8,11 +8,10 @@ const CreateTicket = () => {
     category: "",
     description: "",
   });
-  const [categories, setCategories] = useState([]); // ✅ Lista de categorías desde la API
+  const [categories, setCategories] = useState([]); 
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
-  // 🔹 Obtener las categorías desde la API de roles
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -41,17 +40,16 @@ const CreateTicket = () => {
       return;
     }
 
-    // 🔹 La prioridad se asigna automáticamente según la categoría
     let priority = "Media";
     if (formData.category === "Pagos") priority = "Alta";
     else if (formData.category === "Matrículas") priority = "Baja";
 
-    const assignedArea = formData.category; // ✅ Se asigna automáticamente el área
+    const assignedArea = formData.category; 
 
     const newTicket = {
       ...formData,
       assignedArea,
-      priority, // ✅ Se asigna automáticamente
+      priority, 
       status: "Pendiente",
       createdAt: new Date().toISOString(),
       expiration: new Date(new Date().setDate(new Date().getDate() + (priority === "Alta" ? 1 : priority === "Media" ? 3 : 7))).toISOString(),

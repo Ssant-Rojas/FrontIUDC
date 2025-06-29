@@ -6,14 +6,13 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const server = 'http://localhost:8080/api/user';
-//const server = 'http://localhost:8081/users'
 function RegisterPage() {
   const navigate = useNavigate();
   const [nombres, setNombres] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [celular, setCelular] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const tipoUsuario = 'Alumno';
 
@@ -25,8 +24,8 @@ function RegisterPage() {
       return;
     }
 
-    if (!/^\d{10}$/.test(celular)) {
-      toast.error('El número de celular debe tener exactamente 10 dígitos');
+    if (password != confirmPassword) {
+      toast.error('Las contraseñas no coinciden');
       return;
     }
 
@@ -35,7 +34,6 @@ function RegisterPage() {
       apellidos,
       email,
       password,
-      celular,
       tipoUsuario,
       fechaCreacion: new Date().toISOString(),
       planFK: 1,
@@ -59,7 +57,7 @@ function RegisterPage() {
         const errorData = await response.json();
         toast.error(`Error en el registro: ${errorData.message || 'Verifica los datos ingresados'}`);
       }
-      // eslint-disable-next-line no-unused-vars
+
     } catch (error) {
       toast.error('Hubo un problema con el registro. Intenta de nuevo más tarde.');
     } finally {
@@ -126,12 +124,12 @@ function RegisterPage() {
             </div>
             <div className="input-group">
               <input
-                type="tel"
-                placeholder="Celular"
-                value={celular}
-                onChange={(e) => setCelular(e.target.value)}
+                type="password"
+                placeholder="Confirmar contraseña"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                autoComplete="tel"
+                autoComplete="new-password"
               />
             </div>
             <button className="login-button" type="submit" disabled={loading}>

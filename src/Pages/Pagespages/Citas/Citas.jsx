@@ -23,7 +23,6 @@ function Citas() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Recuperar el token del localStorage
     const token = localStorage.getItem('authToken');
 
     if (!token) {
@@ -31,9 +30,8 @@ function Citas() {
       return;
     }
 
-    // Formar la solicitud
     const requestData = {
-      id_persona: 1, // Debes reemplazar con el ID de usuario adecuado
+      id_persona: 1, 
       id_tipologia: formData.Solicitud,
       nombre_caso: formData.DescripcionDetallada,
       id_documento: null,
@@ -46,14 +44,13 @@ function Citas() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Incluir el token en el encabezado
+          'Authorization': `Bearer ${token}`, 
         },
         body: JSON.stringify(requestData),
       });
 
       if (response.ok) {
         alert('Solicitud enviada con éxito');
-        // Puedes limpiar el formulario aquí si es necesario
         setFormData({
           telefono: '',
           carrera: '',

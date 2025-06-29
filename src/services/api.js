@@ -26,7 +26,6 @@ const addAuthHeader = (config) => {
   return config;
 };
 
-// Manejador de respuestas
 const handleResponse = async (response) => {
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
@@ -35,7 +34,6 @@ const handleResponse = async (response) => {
   return response.json();
 };
 
-// Métodos HTTP principales
 const apiService = {
   get: async (endpoint, service = 'tickets', customConfig = {}) => {
     const config = addAuthHeader({ ...defaultConfig, ...customConfig });
